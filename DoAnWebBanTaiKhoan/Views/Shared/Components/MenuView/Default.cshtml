@@ -1,4 +1,5 @@
 ﻿@model IList<Menu>
+
 <!-- ======= Header ======= -->
 <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
@@ -6,20 +7,23 @@
         <a href="index.html" class="logo d-flex align-items-center">
             <!-- Uncomment the line below if you also wish to use an image logo -->
             <!-- <img src="assets/img/logo.png" alt=""> -->
-            <h1>TAPHOATAIKHOAN</h1>
+            <h1>TAPHOACONGNGHE</h1>
         </a>
             
         <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
         <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
         <nav id="navbar" class="navbar">
 			<ul>
+                
 				@foreach (var menu in Model.Where(m => m.Levels == 1).OrderBy(n => n.MenuOrder))
                 {
                     var Pid = menu.MenuID;
                     var Smenu = Model.Where(p => p.ParentID == Pid).OrderBy(p => p.MenuOrder).ToList();
                     @if(Smenu.Count==0)
                     {
-                        <li><a href="@menu.Link" class="active">@menu.MenuName</a></li>
+                        var active = string.Equals(ViewContext.RouteData.Values["controller"].ToString(), menu.ControllerName, StringComparison.OrdinalIgnoreCase) ? "active" : "";
+                        
+                        <li><a href="@menu.Link" class="@active">@menu.MenuName</a></li>
                     }
                      else 
                     {
@@ -28,13 +32,11 @@
 							<ul>
                             @foreach(var smn in Smenu)
                             {
-                               
 						        <li><a href="@smn.Link">@smn.MenuName</a></li>
-                                
                             }</ul>
 						</li>
                     }
-                }
+                } 
             </ul>
         </nav><!-- .navbar -->
     </div>

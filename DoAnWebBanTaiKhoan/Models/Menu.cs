@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-namespace DoAnWebBanTaiKhoan.Models
+namespace DoAnTapHoaCongNghe.Models
 {
     [Table("Menu")]
     public class Menu

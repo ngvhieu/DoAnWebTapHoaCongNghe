@@ -1748,6 +1748,16 @@ section {
   border: none !important;
   background: none !important;
 }
+    .hero form .form-control1 {
+        padding-top: 18px;
+        padding-bottom: 18px;
+        padding-left: 5px;
+        padding-right: 20px;
+        margin-right: 10px;
+        border: none !important;
+        background: none !important;
+        border: 0.5px solid #000
+    }
 
 .hero form .form-control:hover,
 .hero form .form-control:focus {

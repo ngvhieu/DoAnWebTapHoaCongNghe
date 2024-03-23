@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>0f9f6c19-1d14-43b8-b6bd-d501f0f6320c</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Data\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\admin\adminkit-3.1.0\.github\ISSUE_TEMPLATE\bug_report.md" />
+    <None Include="wwwroot\admin\adminkit-3.1.0\.github\ISSUE_TEMPLATE\config.yml" />
+    <None Include="wwwroot\admin\adminkit-3.1.0\.github\ISSUE_TEMPLATE\feature_request.md" />
+  </ItemGroup>
+
+</Project>

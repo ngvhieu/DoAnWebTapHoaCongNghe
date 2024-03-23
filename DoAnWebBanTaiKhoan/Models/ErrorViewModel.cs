@@ -1,4 +1,4 @@
-namespace DoAnWebBanTaiKhoan.Models
+namespace DoAnTapHoaCongNghe.Models
 {
     public class ErrorViewModel
     {

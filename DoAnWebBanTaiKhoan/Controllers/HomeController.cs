@@ -1,8 +1,8 @@
-using DoAnWebBanTaiKhoan.Models;
+﻿using DoAnTapHoaCongNghe.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
-
-namespace DoAnWebBanTaiKhoan.Controllers
+namespace DoAnTapHoaCongNghe.Controllers
 {
     public class HomeController : Controller
     {
@@ -17,7 +17,13 @@ namespace DoAnWebBanTaiKhoan.Controllers
         {
             return View();
         }
-
+        //public ActionResult Index()
+        //{
+        //    var menus = from(item in _context.Menus select ).ToList();
+        //    ViewBag.CurrentUrl = Request.Url.AbsolutePath; // Lấy URL hiện tại và gán vào ViewBag
+        //    return View(menus);
+        //}
+        [Route("/test")]
         public IActionResult Privacy()
         {
             return View();

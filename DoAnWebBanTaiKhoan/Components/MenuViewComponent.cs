@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using DoAnWebBanTaiKhoan.Models;
-namespace DoAnWebBanTaiKhoan.Components
+using DoAnTapHoaCongNghe.Models;
+namespace DoAnTapHoaCongNghe.Components
 {
     [ViewComponent(Name = "MenuView")]
     public class MenuViewComponents : ViewComponent
