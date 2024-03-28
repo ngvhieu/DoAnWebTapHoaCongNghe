@@ -1,0 +1,86 @@
+﻿@using DoAnTapHoaCongNghe.Models;
+@model IList<Menu>
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div id="preloader" class="">
+                            <div class="page-title">
+                                <h2> Danh sach Menu </h2>
+                            </div>
+                        </div>
+                        <p>
+                            <a type="button" class="btn btn-outline-success btn-icon-text" asp-area="Admin" asp-controller="Menu" asp-action="Create" >
+                                <i class="bi bi-file-earmark-text me-1"></i> Thêm Menu
+                            </a>
+                            @* <a type="button" class="btn btn-success" asp-area="Admin" asp-controller="Menu" asp-action="Create">
+                                <i class="bi bi-file-earmark-text me-1">Them menu</i>
+                            </a> *@
+                        </p>
+                        @* <h4 class="card-title">Bordered table</h4>
+                        <p class="card-description">
+                            Add class <code>.table-bordered</code>
+                        </p> *@
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="text-center"> ID </th>
+                                    <th class="text-center"> MenuName </th>
+                                    <th class="text-center"> IsActive </th>
+                                    <th class="text-center"> ControllerName </th>
+                                    <th class="text-center"> ActionName </th>
+                                    <th class="text-center"> Levels </th>
+                                    <th class="text-center"> ParentID </th>
+                                    <th class="text-center"> Link </th>
+                                    <th class="text-center"> MenuOrder </th>
+                                    @* <th class="text-center"> Position </th> *@
+                                </tr>
+                            </thead>
+                            <tbody id="table">
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td class="text-center"> @item.MenuID </td>
+                                        <td><a asp-area="Admin" asp-controller="Menu" asp-action="Details" asp-route-id="@item.MenuID" class="text-primary"></a> @item.MenuName </td>
+                                       @*  <td>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </td> *@
+                                        <td class="text-center"> @item.IsActive </td>
+                                        <td class="text-center"> @item.ControllerName </td>
+                                        <td class="text-center"> @item.ActionName </td>
+                                        <td class="text-center"> @item.Levels </td>
+                                        <td class="text-center"> @item.ParentID </td>
+                                        <td class="text-center"> @item.Link </td>
+                                        <td class="text-center"> @item.MenuOrder </td>
+                                        @* <td class="text-center"> @item.Position </td> *@
+                                        <td class="text-center d-flex justify-content-around">
+                                           
+                                            <a href="/admin/menu/edit/@item.MenuID" class="align-items-center d-flex justify-content-center btn btn-outline-warning" style="height:30px">
+                                                <i class="mdi mdi-border-color btn-icon-prepend"></i>
+                                                <button class=" btn-icon-text btn-icon-text" style="border:none;background-color:transparent; height:30px">Edit</button>
+                                            </a>
+
+                                            <form asp-area="Admin" asp-controller="Menu" asp-action="Delete" asp-route-id="@item.MenuID" class="align-items-center d-flex justify-content-center btn btn-outline-danger" method="post" style="height:30px">
+                                                <i class="mdi mdi-delete-forever btn-icon-prepend"></i>
+                                                <button class=" btn-icon-text btn-icon-text" style="border:none;background-color:transparent; height:30px" type="submit">Delete</button>
+                                                </form>
+                                            
+                                        </td>
+                                    </tr>
+                                }   
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

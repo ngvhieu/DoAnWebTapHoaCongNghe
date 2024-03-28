@@ -1,0 +1,95 @@
+﻿@model DoAnTapHoaCongNghe.Models.Menu
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="main-panel">
+    <div class="row">
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Sua Menu</h4>
+                    <form class="forms-sample" method="post" asp-action="Edit">
+                        <div asp-validation-summary="All"></div>
+                        <input type="text" asp-for="MenuID" hidden />
+                        <div class="form-group">
+                            <label asp-for="MenuName">MenuName</label>
+                            <input type="text" class="form-control" asp-for="MenuName" placeholder="MenuName">
+                            <span asp-validation-for="MenuName" class="alert-danger"></span>
+                        </div>
+                        <div class=" d-flex flex-wrap">
+                            <div class="form-group col-md-6">
+                                <label asp-for="ControllerName">ControllerName</label>
+                                <input type="text" class="form-control" asp-for="ControllerName" placeholder="ControllerName">
+                                <span asp-validation-for="ControllerName" class="alert-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="ActionName">ActionName</label>
+                                <input type="text" class="form-control" asp-for="ActionName" placeholder="ActionName">
+                                <span asp-validation-for="ActionName" class="alert-danger"></span>
+                            </div>
+                        </div>
+                        <div class=" d-flex flex-wrap">
+                            <div class="form-group col-md-6">
+                                <label asp-for="Levels">Levels</label>
+                                <select asp-for="Levels" class="form-control" id="Levels">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <div class="alert-danger" asp-validation-summary="ModelOnly"></div>
+                                <label asp-for="ParentID">ParentID</label>
+                                <select asp-for="ParentID"
+                                        class="form-control"
+                                        asp-items="@(new SelectList(ViewBag.mnList,"Value", "Text"))">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Link">Link</label>
+                            <input type="text" class="form-control" asp-for="Link" placeholder="Link">
+                            <span asp-validation-for="Link" class="alert-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="MenuOrder">MenuOrder</label>
+                            <input type="number" class="form-control" asp-for="MenuOrder" placeholder="">
+                            <span asp-validation-for="MenuOrder" class="alert-danger"></span>
+                        </div>
+                        @* <div class="form-group mt-md-5">
+                        <label>
+                        @Html.CheckBox("IsActive", false)
+                        Hiển thị
+                        </label>
+                        </div> *@
+                        @* <div class="form-check form-check-flat form-check-primary">
+                        <label class="form-check-label">
+                        <input type="checkbox" asp-for="IsActive" class="form-check-input"> Hien thi <i class="input-helper"></i>
+                        </label>
+                        </div> *@
+                        <div class="form-check form-check-flat form-check-primary">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" id="isActiveCheckbox" name="IsActive" value="false"> Hiển thị
+                                <i class="input-helper"></i>
+                            </label>
+                        </div>
+
+                        <script>
+                            const isActiveCheckbox = document.getElementById('isActiveCheckbox');
+
+                            isActiveCheckbox.addEventListener('change', function () {
+                                if (this.checked) {
+                                    this.value = "true";
+                                } else {
+                                    this.value = "false";
+                                }
+                            });
+                        </script>
+
+                        <button type="submit" class="btn btn-inverse-success btn-fw">Success</button>
+                        <a asp-controller="Menu" asp-action="Index" class="btn btn-inverse-secondary btn-fw">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

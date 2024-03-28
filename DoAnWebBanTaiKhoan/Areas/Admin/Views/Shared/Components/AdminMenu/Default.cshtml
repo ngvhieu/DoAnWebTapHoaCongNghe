@@ -1,29 +1,45 @@
 ﻿@using DoAnTapHoaCongNghe.Areas.Admin.Models
+@using DoAnTapHoaCongNghe.Utilities
 @model IList<AdminMenu>
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <li class="nav-item nav-category">Main</li>
         @foreach (var cc in Model.Where(m=>m.ItemLevel == 1).OrderBy(n=>n.ItemOrder))
         {
+            var active = string.Equals(ViewContext.RouteData.Values["controller"].ToString(), cc.ControllerName, StringComparison.OrdinalIgnoreCase) ? "active" : "";
             var Pid = cc.AdminMenuID;
             var Smenu = Model.Where(p => p.ParentLevel == Pid).OrderBy(p => p.ItemOrder).ToList();
-            <li class="nav-item">
-                <a class="nav-link" target="@cc.ItemTarget" href="index.html">
-                    <span class="icon-bg"><i class="@cc.Icon"></i></span>
-                    <span class="menu-title">@cc.ItemName</span>
-                </a>
-                <div class="collapse" id="@cc.IdName">
-                    <ul class="nav flex-column sub-menu">
-                        @foreach(var smn in Smenu)
-                        {
-                            <li class="nav-item"> <a class="nav-link" href="Admin/@smn.ControllerName/@smn.ActionName">@smn.ItemName</a></li>
-                        }
-                    </ul>
-                </div>
-            </li>
+            if (Smenu.Count == 0)
+            {
+                <li class="nav-item @active">
+                    <a class="nav-link" href="/admin/@cc.ControllerName/@cc.ActionName">
+                        <span class="icon-bg"><i class="@cc.Icon"></i></span>
+                        <span class="menu-title">@cc.ItemName</span>
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item">
+                    <a class="nav-link" target="@cc.ItemTarget" href="/admin/@cc.ControllerName/@cc.ActionName">
+                        <span class="icon-bg"><i class="@cc.Icon"></i></span>
+                        <span class="menu-title">@cc.ItemName</span>
+                    </a>
+                    <div class="collapse" id="@cc.IdName">
+                        <ul class="nav flex-column sub-menu">
+                            @foreach (var smn in Smenu)
+                            {
+                                <li class="nav-item"> <a class="nav-link" href="Admin/@smn.ControllerName/@smn.ActionName">@smn.ItemName</a></li>
+                            }
+                        </ul>
+                    </div>
+                </li>
+            }
+            
         }
-        <li class="nav-item documentation-link">
-            <a class="nav-link" href="http://www.bootstrapdash.com/demo/connect-plus-free/jquery/documentation/documentation.html" target="_blank">
+        
+        @* <li class="nav-item documentation-link">
+            <a class="nav-link" href="" target="_blank">
                 <span class="icon-bg">
                     <i class="mdi mdi-file-document-box menu-icon"></i>
                 </span>
@@ -39,7 +55,7 @@
                                 <img src="~/admin/assets/images/faces/face28.png" alt="image">
                             </div>
                             <div class="sidebar-profile-text">
-                                <p class="mb-1">Henry Klein</p>
+                                <span class="mb-1">@Functions._UserName</span>
                             </div>
                         </div>
                     </div>
@@ -70,6 +86,6 @@
                     <span class="menu-title">Log Out</span>
                 </a>
             </div>
-        </li>
+        </li> *@
     </ul>
 </nav>
