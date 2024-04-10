@@ -1,4 +1,5 @@
 ﻿using DoAnTapHoaCongNghe.Models;
+using DoAnTapHoaCongNghe.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
@@ -33,6 +34,16 @@ namespace DoAnTapHoaCongNghe.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        public IActionResult Logout()
+        {
+            Functions._UserID = 0;
+            Functions._UserName = string.Empty;
+            Functions._Email = string.Empty;
+            Functions._Message = string.Empty;
+            Functions._MessageEmail = string.Empty;
+            return RedirectToAction("Index", "Home");
+
         }
     }
 }

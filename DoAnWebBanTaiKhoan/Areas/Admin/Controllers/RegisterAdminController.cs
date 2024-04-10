@@ -7,10 +7,10 @@ namespace DoAnTapHoaCongNghe.Areas.Admin.Controllers
 {
     [Area("Admin")]
 
-    public class RegisterController : Controller
+    public class RegisterAdminController : Controller
     {
         private readonly DataContext _context;
-        public RegisterController(DataContext context)
+        public RegisterAdminController(DataContext context)
         {
             _context = context;
         }
@@ -31,14 +31,14 @@ namespace DoAnTapHoaCongNghe.Areas.Admin.Controllers
             if (check != null)
             {
                 Functions._MessageEmail = "Duplicate Email!";
-                return RedirectToAction("Index", "Register");
+                return RedirectToAction("Index", "RegisterAdmin");
             }
             Functions._MessageEmail = string.Empty;
             user.password = Functions.MD5Password(user.password);
             _context.Add(user);
             _context.SaveChanges();
 
-            return RedirectToAction("Index", "Login");
+            return RedirectToAction("Index", "LoginAdmin");
         }
     }
 }

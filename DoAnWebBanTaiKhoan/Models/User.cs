@@ -13,6 +13,6 @@ namespace DoAnTapHoaCongNghe.Models
         public string? full_name { get; set; }
         public string? address { get; set; }
         public string? phone_number { get; set; }
-        public DateTime? create_at { get; set; }
+        //public DateTime? create_at { get; set; }
     }
 }

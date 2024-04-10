@@ -15,6 +15,6 @@ namespace DoAnTapHoaCongNghe.Models
         public int quantity { get; set; }
         public string? category { get; set; }
         public string? image { get;set;}
-        public DateTime? created_at { get; set; }
+        //public DateTime? created_at { get; set; }
     }
 }

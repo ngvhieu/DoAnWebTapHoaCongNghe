@@ -1,17 +1,15 @@
-﻿using DoAnTapHoaCongNghe.Areas.Admin.Models;
-using DoAnTapHoaCongNghe.Models;
+﻿using DoAnTapHoaCongNghe.Models;
 using DoAnTapHoaCongNghe.Utilities;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DoAnTapHoaCongNghe.Areas.Admin.Controllers
+namespace DoAnTapHoaCongNghe.Controllers
 {
-    [Area("Admin")]
-    [Route("/admin/login")]
-    public class LoginController : Controller
+    [Route("~/login")]
+    public class LoginUserController : Controller
     {
         private readonly DataContext _context;
 
-        public LoginController(DataContext context)
+        public LoginUserController(DataContext context)
         {
             _context = context;
         }
@@ -28,7 +26,7 @@ namespace DoAnTapHoaCongNghe.Areas.Admin.Controllers
         // Action xử lý đăng nhập khi nhận yêu cầu POST từ form đăng nhập
         [HttpPost]
         //[Route("Admin")]
-        public IActionResult Index( admin user)
+        public IActionResult Index(User user)
         {
             if (user == null)
             {
@@ -40,7 +38,7 @@ namespace DoAnTapHoaCongNghe.Areas.Admin.Controllers
             user.password = hashedPassword;
 
             // Kiểm tra sự tồn tại của người dùng với email và mật khẩu đã mã hóa
-            var check = _context.admins
+            var check = _context.users
                 .Where(m => m.email == user.email && m.password == hashedPassword)
                 .FirstOrDefault();
 
@@ -52,7 +50,7 @@ namespace DoAnTapHoaCongNghe.Areas.Admin.Controllers
 
             Functions._Message = string.Empty;
 
-            Functions._UserID = check.admin_id;
+            Functions._UserID = check.user_id;
             Functions._UserName = string.IsNullOrEmpty(check.username) ? string.Empty : check.username;
             Functions._Email = string.IsNullOrEmpty(check.email) ? string.Empty : check.email;
 

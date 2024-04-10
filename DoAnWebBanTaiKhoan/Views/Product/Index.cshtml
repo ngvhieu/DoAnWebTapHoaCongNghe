@@ -1,5 +1,91 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using DoAnTapHoaCongNghe.Models;
+@model IList<Product>
 @{
+	Layout = "~/Views/Shared/_LayoutProduct.cshtml";
 }
+@await Component.InvokeAsync("MenuView")
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="hero d-flex align-items-center">
+	<div class="container">
+		<div class="row gy-4 d-flex justify-content-between">
+			<div class="order-2 order-lg-1 d-flex flex-column justify-content-center">
+				<h2 data-aos="fade-up" class="text-center">Product</h2>
+			</div>
+			<div class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out">
+				<img src="" class="img-fluid mb-3 mb-lg-0" alt="">
+			</div>
+
+		</div>
+	</div>
+</section>
+
+<section class="ftco-section">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-10 mb-5 text-center">
+				<ul class="product-category">
+					<li><a href="#" class="active">All</a></li>
+					<li><a href="#">Vegetables</a></li>
+					<li><a href="#">Fruits</a></li>
+					<li><a href="#">Juice</a></li>
+					<li><a href="#">Dried</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="row">
+			@foreach (var db in Model)
+			{
+				<div class="col-md-6 col-lg-3 ftco-animate ftco-animated fadeInUp">
+					<div class="product">
+						<a href="#" class="img-prod">
+							<img class="img-fluid" src="@db.image" alt="Colorlib Template">
+							<span class="status">10%</span>
+							<div class="overlay"></div>
+						</a>
+						<div class="text py-3 pb-4 px-3 text-center">
+							<h3><a href="#">@db.product_name</a></h3>
+							<div class="d-flex">
+								<div class="pricing">
+									<p class="price"><span class="mr-2 price-dc">10</span><span class="price-sale">@db.price</span></p>
+								</div>
+							</div>
+							<div class="bottom-area d-flex px-3">
+								<div class="m-auto d-flex">
+									<a type="button" href="@Url.Action("Details", "Product", new { id = db.product_id })"
+									   class="add-to-cart d-flex justify-content-center align-items-center text-center">
+										<span><i class="ion-ios-menu"></i></span>
+									</a>
+									<form asp-controller="Order" asp-action="AddToCart" method="post" class="add-to-cart d-flex justify-content-center align-items-center text-center" style="background:#193083;border-radius: 50%;margin: auto;">
+										<input type="hidden" name="product_id" value="@db.product_id" />
+										<input type="hidden" name="quantity" value="1" />
+										<button type="submit" style="background-color: transparent; border-color: transparent; width: 40px;height: 40px;color: #fff; ">
+											<span><i class="ion-ios-cart"></i></span>
+										</button>
+									</form>
+									<a href="#" class="heart d-flex justify-content-center align-items-center ">
+										<span><i class="ion-ios-heart"></i></span>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			}
+		</div>
+		<div class="row mt-5">
+			<div class="col text-center">
+				<div class="block-27">
+					<ul>
+						<li><a href="#">&lt;</a></li>
+						<li class="active"><span>1</span></li>
+						<li><a href="#">2</a></li>
+						<li><a href="#">3</a></li>
+						<li><a href="#">4</a></li>
+						<li><a href="#">5</a></li>
+						<li><a href="#">&gt;</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

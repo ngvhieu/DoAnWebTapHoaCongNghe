@@ -18,5 +18,6 @@ namespace DoAnTapHoaCongNghe.Models
         public DbSet<Product> products { get; set; }
         public DbSet<User> users { get; set; }
         public DbSet<Seller> sellers { get; set; }
+        public DbSet<Order> orders { get; set; }
     }
 }
