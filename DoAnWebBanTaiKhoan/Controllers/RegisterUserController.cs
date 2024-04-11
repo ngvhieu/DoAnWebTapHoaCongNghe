@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DoAnTapHoaCongNghe.Controllers
 {
-	public class RegisterUserController : Controller
+    [Route("~/register")]
+    public class RegisterUserController : Controller
 	{
 		private readonly DataContext _context;
 		public RegisterUserController(DataContext context)

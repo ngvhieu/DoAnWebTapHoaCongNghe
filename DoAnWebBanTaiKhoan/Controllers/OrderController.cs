@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DoAnTapHoaCongNghe.Utilities;
+using System.Linq;
 namespace DoAnTapHoaCongNghe.Controllers
 {
-	
 	public class OrderController : Controller
 	{
 		private readonly DataContext _context;
@@ -14,15 +14,14 @@ namespace DoAnTapHoaCongNghe.Controllers
 		}
 		public IActionResult Index()
 		{
-			var order = _context.orders.Select(o => new
+			var order = _context.orders.Where(o => o.user_id == Functions._UserID).Select(o => new
 			{
 				order = o,
-				product = _context.products.Where(p => p.product_id == o.product_id).FirstOrDefault(),
+                product = _context.products.Where(p => p.product_id == o.product_id).FirstOrDefault(),
 			}).ToList();
 			//return Ok(order);
 			return View(order);
 		}
-
 		[HttpPost]
 		public ActionResult AddToCart(int product_id, int quantity)
 		{
@@ -31,25 +30,21 @@ namespace DoAnTapHoaCongNghe.Controllers
 			{
 				return NotFound();
 			}
-
 			decimal total_price = (decimal)(product.price * quantity);
 			var order = new Order
 			{
-				user_id = 1,
+				user_id = Functions._UserID,
 				seller_id = product.seller_id,
 				product_id = product_id,
 				quantity = quantity,
 				total_price = total_price,
 				order_status = "Pending",
 			};
-
-			// Add order to context
 			_context.orders.Add(order);
 			_context.SaveChanges();
-
 			return RedirectToAction("Index");
 		}
-			public IActionResult Delete(int? id)
+		public IActionResult Delete(int? id)
 		{
 			if (id == null || id == 0)
 			{
@@ -60,7 +55,6 @@ namespace DoAnTapHoaCongNghe.Controllers
 			{
 				return NotFound();
 			}
-
 			return View(cc);
 		}
 		[HttpPost]

@@ -13,6 +13,7 @@ namespace DoAnTapHoaCongNghe.Models
 		public int quantity { get; set; }
 		public decimal total_price { get; set; }
 		public string? order_status { get; set; }
-		//public DateTime? created_at { get; set; }
-	}
+        //public Product Product { get; set; }
+        //public DateTime? created_at { get; set; }
+    }
 }
