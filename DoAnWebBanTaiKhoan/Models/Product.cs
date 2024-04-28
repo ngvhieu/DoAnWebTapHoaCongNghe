@@ -11,7 +11,7 @@ namespace DoAnTapHoaCongNghe.Models
         public string? product_name { get; set;}
         public string? product_description { get;
         set;}
-        public decimal? price { get; set; }
+        public decimal price { get; set; }
         public int quantity { get; set; }
         public string? category { get; set; }
         public string? image { get;set;}

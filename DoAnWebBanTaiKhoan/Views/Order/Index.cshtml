@@ -1,156 +1,222 @@
-﻿@using DoAnTapHoaCongNghe.Models; 
- @* @model IList<Order>  *@
-@{
-	Layout = "~/Views/Shared/_LayoutProduct.cshtml";
-}
-@{
-    decimal totalAmount = 0;
-}
-@await Component.InvokeAsync("MenuView")
+﻿@using DoAnTapHoaCongNghe.ViewModels
+@model List<OrderViewModel>
+<style>
+    .content-wrapper {
+        background: #f0f1f6;
+        padding: 2.875rem 2.875rem 0 2.875rem;
+        width: 100%;
+        flex-grow: 1;
+    }
+
+    .row {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        margin-right: -9px;
+        margin-left: -9px;
+    }
+
+    stretch-card {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: stretch;
+        -ms-flex-align: stretch;
+        align-items: stretch;
+        -webkit-box-pack: stretch;
+        -ms-flex-pack: stretch;
+        justify-content: stretch;
+    }
+
+    .stretch-card > .card {
+        width: 100%;
+        min-width: 100%;
+    }
+
+    .card .card-body {
+        padding: 2.5rem 2.5rem;
+    }
+
+    .card-body {
+        -webkit-box-flex: 1;
+        -ms-flex: 1 1 auto;
+        flex: 1 1 auto;
+        min-height: 1px;
+        padding: 1.25rem;
+    }
+
+    .card {
+        position: relative;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 1px solid rgba(0, 0, 0, 0.125);
+        border-radius: 0.3125rem;
+    }
+
+    .page-title {
+        color: #111;
+        font-size: 1.125rem;
+        margin-bottom: 0;
+    }
+
+    .table-bordered {
+        border: 1px solid rgba(151, 151, 151, 0.3);
+    }
+
+    .table thead th {
+        border-top: 0;
+        border-bottom-width: 1px;
+        font-family: "nunito-medium", sans-serif;
+        font-weight: initial;
+    }
+
+    .table th, .table td {
+        vertical-align: middle;
+        font-size: 0.875rem;
+        line-height: 1;
+        white-space: nowrap;
+    }
+
+    tbody {
+        display: table-row-group;
+        vertical-align: middle;
+        unicode-bidi: isolate;
+        border-color: inherit;
+    }
+
+    tr {
+        display: table-row;
+        vertical-align: inherit;
+        unicode-bidi: isolate;
+        border-color: inherit;
+    }
+
+    .badge {
+        border-radius: .25rem;
+        font-size: 11px;
+        font-weight: initial;
+        line-height: 1;
+        padding: .375rem .5625rem;
+        font-family: "nunito-medium", sans-serif;
+        display: inline-block;
+        padding: 0.25em 0.4em;
+        font-size: 75%;
+        font-weight: 700;
+        line-height: 1;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: 0.25rem;
+        -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+    
+    }
+
+    .badge-success, .preview-list .preview-item .preview-thumbnail .badge.badge-online {
+        color: #fff;
+        font-size: 11px;
+        background-color: #44ce42;
+    }
+
+    .badge-info, .preview-list .preview-item .preview-thumbnail .badge.badge-offline {
+        border: 1px solid #a461d8;
+        font-size: 11px;
+        color: #ffffff;
+    }
+
+    .badge-info, .preview-list .preview-item .preview-thumbnail .badge.badge-offline {
+        color: #fff;
+        background-color: #a461d8;
+        font-size: 11px;
+    }
+
+</style>
 <section id="hero" class="hero align-items-center" style="height: 10px; min-height: 0;">
 </section>
-<section class="ftco-section ftco-cart">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12 ftco-animate">
-				<div class="cart-list">
-					<table class="table">
-						<thead class="thead-primary">
-							<tr class="text-center">
-								<th>&nbsp;</th>
-								<th>&nbsp;</th>
-								<th>Tên sản phẩm</th>
-								<th>Giá</th>
-								<th>Số lượng</th>
-								<th>Tổng tiền</th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach (var order in @Model)
-							{
-								<tr class="text-center">
-									<td class="product-remove">
-										<form asp-action="Delete"  asp-route-id="@order.order.order_id" method="post">
-											<button class="ion-ios-close" style="border-radius: 8px; width:40px;" type="submit"></button/>
-										</form>
-									</td>
-									<td class="image-prod"><div class="img" style="background-image:url(@order.product.image);"></div></td>
-									<td class="product-name">
-										<h3>@order.product.product_name</h3>
-										<p>@order.product.product_description</p>
-									</td>
-									<td class="price">$@order.product.price</td>
-									<td class="quantity">
-						        		<for class="input-group mb-3">
-					             			<input type="number" name="quantity" class="quantity form-control input-number" value="@order.order.quantity" min="1" max="100">
-					          			</for>
-									</td>
-
-									<td class="total">$@order.order.total_price</td>
-								</tr>
-								decimal totalPrice = order.product.price * order.order.quantity; 
-									totalAmount += totalPrice;
-							}
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-		<div class="row justify-content-end">
-			<div class="col-lg-4 mt-5 cart-wrap ftco-animate">
-				<div class="cart-total mb-3">
-					<h3>Coupon Code</h3>
-					<p>Enter your coupon code if you have one</p>
-					<form action="#" class="info">
-						<div class="form-group">
-							<label for="">Coupon code</label>
-							<input type="text" class="form-control text-left px-3" placeholder="">
-						</div>
-					</form>
-				</div>
-				<p><a href="checkout.html" class="btn btn-primary py-3 px-4">Apply Coupon</a></p>
-			</div>
-			<div class="col-lg-4 mt-5 cart-wrap ftco-animate">
-				<div class="cart-total mb-3">
-					<h3>Estimate shipping and tax</h3>
-					<p>Enter your destination to get a shipping estimate</p>
-					<form action="#" class="info">
-						<div class="form-group">
-							<label for="">Country</label>
-							<input type="text" class="form-control text-left px-3" placeholder="">
-						</div>
-						<div class="form-group">
-							<label for="country">State/Province</label>
-							<input type="text" class="form-control text-left px-3" placeholder="">
-						</div>
-						<div class="form-group">
-							<label for="country">Zip/Postal Code</label>
-							<input type="text" class="form-control text-left px-3" placeholder="">
-						</div>
-					</form>
-				</div>
-				<p><a href="checkout.html" class="btn btn-primary py-3 px-4">Estimate</a></p>
-			</div>
-			<div class="col-lg-4 mt-5 cart-wrap ftco-animate">
-				<div class="cart-total mb-3">
-					<h3>Cart Totals</h3>
-					<p class="d-flex">
-						<span>Subtotal</span>
-						<span>$@totalAmount</span>
-					</p>
-					<p class="d-flex">
-						<span>Delivery</span>
-						<span>$0.00</span>
-					</p>
-					<p class="d-flex">
-						<span>Discount</span>
-						<span>$0.00</span>
-					</p>
-					<hr>
-					<p class="d-flex total-price">
-						<span>Total</span>
-						<span>$@totalAmount</span>
-					</p>
-				</div>
-				<p><a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
-			</div>
-		</div>
-	</div>
-</section>
-
-<section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
-	<div class="container py-4">
-		<div class="row d-flex justify-content-center py-5">
-			<div class="col-md-6">
-				<h2 style="font-size: 22px;" class="mb-0">Subcribe to our Newsletter</h2>
-				<span>Get e-mail updates about our latest shops and special offers</span>
-			</div>
-			<div class="col-md-6 d-flex align-items-center">
-				<form action="#" class="subscribe-form">
-					<div class="form-group d-flex">
-						<input type="text" class="form-control" placeholder="Enter email address">
-						<input type="submit" value="Subscribe" class="submit px-3">
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-</section>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $(".quantity input").on('input', function() {
-            var quantity = $(this).val();
-            var price = $(this).closest('tr').find('.price').text().replace('$', '');
-            var totalPrice = parseFloat(price) * parseInt(quantity);
-            $(this).closest('tr').find('.total').text('$' + totalPrice.toFixed(2));
-
-            // Recalculate totalAmount
-            var totalAmount = 0;
-            $('.total').each(function() {
-                totalAmount += parseFloat($(this).text().replace('$', ''));
-            });
-            $('.total-price span:last').text('$' + totalAmount.toFixed(2));
-        });
-    });
-</script>	
+<div class="">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div id="" class="">
+                            <div class="page-title">
+                                <h2>Order Details</h2>
+                            </div>
+                        </div>
+                        @if (Model.Any())
+                        {
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">ID</th>
+                                        <th class="text-center">Mã đơn hàng</th>
+                                        <th class="text-center">Thời gian</th>
+                                        <th class="text-center">Tên sản phẩm</th>
+                                        <th class="text-center">Người bán</th>
+                                        <th class="text-center">Số lượng</th>
+                                        <th class="text-center">Tổng giá</th>
+                                        <th class="text-center">Trạng thái</th>
+                                        <th class="text-center">      </th> <!-- Thêm cột cho actions -->
+                                    </tr>
+                                </thead>
+                                <tbody id="table">
+                                    @foreach (var order in Model)
+                                    {
+                                        <tr>
+                                            <td class="text-center">@order.OrderID</td>
+                                            <td class="text-center">@order.ProductID</td>
+                                            <td class="text-center">@order.Time</td>
+                                            <td class="text-center">@order.ProductName</td>
+                                            <td class="text-center">@order.ShopName</td>
+                                            <td class="text-center">@order.Quantity</td>
+                                            <td class="text-center">@order.TotalPrice</td>
+                                            <td class="text-center">
+                                                @if (order.OrderStatus == "paid")
+                                                {
+                                                    <span class="badge badge-success">@order.OrderStatus</span>
+                                                }
+                                                else if (order.OrderStatus == "pending")
+                                                {
+                                                    <span class="badge badge-warning">@order.OrderStatus</span>
+                                                }
+                                                else if (order.OrderStatus == "failed")
+                                                {
+                                                    <span class="badge badge-danger">@order.OrderStatus</span>
+                                                }
+                                                else if (order.OrderStatus == "oe")
+                                                {
+                                                    <span class="badge badge-info">@order.OrderStatus</span>
+                                                }
+                                            </td>
+                                            <td class="text-center d-flex justify-content-around">
+                                                <a class="btn btn-outline-primary btn-fw" style="font-size: 12px;" href="@Url.Action("Details", "Order", new { id = order.OrderID })">Chi tiết</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        else
+                        {
+                            <p>No order details found.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

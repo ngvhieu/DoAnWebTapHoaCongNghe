@@ -14,5 +14,6 @@ namespace DoAnTapHoaCongNghe.Models
         public string? address { get; set; }
         public string? phone_number { get; set; }
         //public DateTime? create_at { get; set; }
+        public string? avatar { get; set; }
     }
 }

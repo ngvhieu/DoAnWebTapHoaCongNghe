@@ -24,7 +24,7 @@
                     {
                         var active = string.Equals(ViewContext.RouteData.Values["controller"].ToString(), menu.ControllerName, StringComparison.OrdinalIgnoreCase) ? "active" : "";
 
-                        <li><a href="@menu.Link" class="@active">@menu.MenuName</a></li>
+                        <li><a href="/@menu.Link" class="@active">@menu.MenuName</a></li>
                     }
                     else
                     {
@@ -33,7 +33,7 @@
                             <ul>
                                 @foreach (var smn in Smenu)
                                 {
-                                    <li><a href="@smn.Link">@smn.MenuName</a></li>
+                                    <li><a href="/@smn.Link">@smn.MenuName</a></li>
                                 }
                             </ul>
                         </li>
@@ -52,7 +52,7 @@
                                 </div>
                             </li>
                             <hr style="border: none; border-bottom: 2px solid black; margin: 5px 0;">
-                            <li><a href="#">Thông tin tài khoản</a></li>
+                            <li><a href="/user">Thông tin tài khoản</a></li>
                             <li><a href="#">Đơn hàng đã mua</a></li>
                             <li><a href="#">Lịch sử thanh toán</a></li>
                             <li><a href="#">Gian hàng yêu thích</a></li>

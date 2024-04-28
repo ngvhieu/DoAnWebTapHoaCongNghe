@@ -1,8 +1,10 @@
-﻿using DoAnTapHoaCongNghe.Models;
+﻿
+using DoAnTapHoaCongNghe.Models;
 using DoAnTapHoaCongNghe.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using System.Configuration;
 namespace DoAnTapHoaCongNghe.Controllers
 {
     public class HomeController : Controller
@@ -13,7 +15,6 @@ namespace DoAnTapHoaCongNghe.Controllers
         {
             _logger = logger;
         }
-
         public IActionResult Index()
         {
             return View();
@@ -45,5 +46,8 @@ namespace DoAnTapHoaCongNghe.Controllers
             return RedirectToAction("Index", "Home");
 
         }
+
     }
+
 }
+

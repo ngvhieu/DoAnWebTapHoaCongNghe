@@ -9,11 +9,11 @@ namespace DoAnTapHoaCongNghe.Models
 		public int order_id { get; set; }
 		public int user_id { get; set; }
 		public int seller_id { get; set; }
-		public int product_id { get; set; }
-		public int quantity { get; set; }
 		public decimal total_price { get; set; }
+		//public decimal total_pay { get; set; }
 		public string? order_status { get; set; }
         //public Product Product { get; set; }
-        //public DateTime? created_at { get; set; }
+        //
+		public DateTime? Time { get; set; }
     }
 }

@@ -10,7 +10,10 @@ builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(conne
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
-
+app.MapControllerRoute(
+      name: "areas",
+      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+    );
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

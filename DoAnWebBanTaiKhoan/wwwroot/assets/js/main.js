@@ -1,4 +1,4 @@
-/**
+﻿/**
 * Template Name: Logis
 * Updated: Jan 29 2024 with Bootstrap v5.3.2
 * Template URL: https://bootstrapmade.com/logis-bootstrap-logistics-website-template/
@@ -149,4 +149,38 @@ document.addEventListener('DOMContentLoaded', () => {
     aos_init();
   });
 
+});
+
+$(document).ready(function () {
+    $(".quantity input").on('input', function () {
+        // Code xử lý số lượng sản phẩm và cập nhật tổng giá trị ở đây
+
+        // Gửi giá trị totalAmount về controller
+        var totalAmount = calculateTotalAmount();
+        sendTotalAmount(totalAmount);
+    });
+
+    function calculateTotalAmount() {
+        var totalAmount = 0;
+        $('.total').each(function () {
+            totalAmount += parseFloat($(this).text().replace('$', ''));
+        });
+        return totalAmount.toFixed(2);
+    }
+
+    function sendTotalAmount(totalAmount) {
+        $.ajax({
+            url: '/Checkout/ProcessCheckout',
+            type: 'POST',
+            data: { totalAmount: totalAmount },
+            success: function (response) {
+                // Xử lý phản hồi từ controller (nếu cần)
+                console.log('Total amount sent successfully!');
+            },
+            error: function (xhr, status, error) {
+                // Xử lý lỗi (nếu có)
+                console.error('Error sending total amount:', error);
+            }
+        });
+    }
 });

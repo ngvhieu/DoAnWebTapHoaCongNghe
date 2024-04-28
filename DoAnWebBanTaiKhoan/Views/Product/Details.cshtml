@@ -7,14 +7,13 @@
 <section id="hero" class="hero align-items-center" style="height: 10px; min-height: 0;">
 </section>
 <section class="ftco-section " style="padding: 3em 0">
-	<form asp-controller="Order" asp-action="AddToCart" method="post">
+	<form asp-controller="Cart" asp-action="AddToCart" method="post">
 		<input name="product_id" value="@Model.product_id" hidden />
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 mb-5 ftco-animate">
 					<a href="/@Url.Content(Model.image)" class="image-popup"><img src="/@Url.Content(Model.image)" class="img-fluid" alt="Colorlib Template"></a>
 				</div>
-
 				<div class="col-lg-6 product-details pl-md-5 ftco-animate">
 					<h3>@Model.product_name</h3>
 					<a class="rating" href="#" style="color: #3579;"><h5>@ViewBag.SellerName</h5></a>
@@ -75,7 +74,6 @@
 				</div>
 			</div>
 		</div>
-		
 	</form>
 </section>
 @if (ViewBag.RelatedProducts != null && ViewBag.RelatedProducts.Count > 0)

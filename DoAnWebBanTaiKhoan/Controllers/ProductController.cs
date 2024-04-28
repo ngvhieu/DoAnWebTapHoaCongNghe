@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using DoAnTapHoaCongNghe.Utilities;
 namespace DoAnTapHoaCongNghe.Controllers
 {
     public class ProductController : Controller
