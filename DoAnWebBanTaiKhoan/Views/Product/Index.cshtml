@@ -55,7 +55,7 @@
 									   class="add-to-cart d-flex justify-content-center align-items-center text-center">
 										<span><i class="ion-ios-menu"></i></span>
 									</a>
-									<form asp-controller="Order" asp-action="AddToCart" method="post" class="add-to-cart d-flex justify-content-center align-items-center text-center" style="background:#193083;border-radius: 50%;margin: auto;">
+									<form asp-controller="Cart" asp-action="AddToCart" method="post" class="add-to-cart d-flex justify-content-center align-items-center text-center" style="background:#193083;border-radius: 50%;margin: auto;">
 										<input type="hidden" name="product_id" value="@db.product_id" />
 										<input type="hidden" name="quantity" value="1" />
 										<button type="submit" style="background-color: transparent; border-color: transparent; width: 40px;height: 40px;color: #fff; ">

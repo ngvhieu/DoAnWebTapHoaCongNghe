@@ -1,0 +1,49 @@
+﻿@model DoAnTapHoaCongNghe.Models.Question
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="main-panel">
+    <div class="row">
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Sua cau hoi</h4>
+                    <form class="forms-sample" method="post" asp-action="Edit">
+                        <div asp-validation-summary="All"></div>
+                        <input type="text" asp-for="question_id" hidden />
+                        <div class="form-group">
+                            <label asp-for="question">Cau hoi</label>
+                            <input type="text" class="form-control" asp-for="question" placeholder="hoi di">
+                            <span asp-validation-for="question" class="alert-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="answer">Tra loi</label>
+                            <input type="text" class="form-control" asp-for="answer" placeholder="noi nhanh">
+                            <span asp-validation-for="answer" class="alert-danger"></span>
+                        </div>
+                        <div class="form-check form-check-flat form-check-primary">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" id="isActiveCheckbox" name="is_active" value="false"> Hiển thị
+                                <i class="input-helper"></i>
+                            </label>
+                        </div>
+
+                        <script>
+                            const isActiveCheckbox = document.getElementById('isActiveCheckbox');
+                            isActiveCheckbox.addEventListener('change', function () {
+                                if (this.checked) {
+                                    this.value = "true";
+                                } else {
+                                    this.value = "false";
+                                }
+                            });
+                        </script>
+
+                        <button type="submit" class="btn btn-inverse-success btn-fw">Success</button>
+                        <a asp-controller="Question" asp-action="Index" class="btn btn-inverse-secondary btn-fw">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

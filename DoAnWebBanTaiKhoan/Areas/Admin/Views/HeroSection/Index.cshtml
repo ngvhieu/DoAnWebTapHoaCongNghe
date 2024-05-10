@@ -1,0 +1,55 @@
+﻿@using DoAnTapHoaCongNghe.Models;
+@model IList<HeroSection>
+@{
+	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="main-panel">
+	<div class="content-wrapper">
+		<div class="row">
+			<div class="col-lg-12 grid-margin stretch-card">
+				<div class="card">
+					<div class="card-body">
+						<div id="preloader" class="">
+							<div class="page-title">
+								<h2> Chinh sua banner </h2>
+							</div>
+						</div>
+
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th class="text-center"> id</th>
+									<th class="text-center"> Intro </th>
+									<th class="text-center"> Info </th>
+									<th class="text-center"> Image </th>
+									<th class="text-center"> Toppic </th>
+									<th class="text-center"> TopicData </th>
+								</tr>
+							</thead>
+							<tbody id="table">
+								@foreach (var item in Model)
+								{
+									<tr>
+										<td class="text-center"> @item.Id</td>
+										<td class="text-center"> @item.Intro </td>
+										<td class="text-center" style="white-space: pre-wrap;"> @item.Info </td>
+										<td class="text-center"> @item.Image </td>
+										<td class="text-center"> @item.Topic </td>
+										<td class="text-center"> @item.Topicdata </td>
+										<td class="text-center d-flex justify-content-around">
+											<a href="/admin/herosection/edit/@item.Id" class="align-items-center d-flex justify-content-center btn btn-outline-warning" style="height:30px">
+												<i class="mdi mdi-border-color btn-icon-prepend"></i>
+												<button class=" btn-icon-text btn-icon-text" style="border:none;background-color:transparent; height:30px">Edit</button>
+											</a>
+										</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

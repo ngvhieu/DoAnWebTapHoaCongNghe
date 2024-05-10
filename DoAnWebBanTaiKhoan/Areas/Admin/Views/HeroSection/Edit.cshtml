@@ -1,0 +1,48 @@
+﻿@model DoAnTapHoaCongNghe.Models.HeroSection
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="main-panel">
+    <div class="row">
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Sua Menu</h4>
+                    <form class="forms-sample" method="post" asp-action="Edit">
+                        <div asp-validation-summary="All"></div>
+                        <input type="text" asp-for="Topic" hidden />
+                        <div class="form-group">
+                            <label asp-for="Intro">Gioi thieu</label>
+                            <input type="text" class="form-control" asp-for="Intro" placeholder="Name">
+                            <span asp-validation-for="Intro" class="alert-danger"></span>
+                        </div>
+                        <div class=" d-flex flex-wrap">
+                            <div class="form-group col-md-6">
+                                <label asp-for="Info">Thông tin</label>
+                                <input type="text" class="form-control" asp-for="Info" placeholder="info">
+                                <span asp-validation-for="Info" class="alert-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="Image">Anh</label>
+                                <input type="text" class="form-control" asp-for="Image" placeholder="Image">
+                                <span asp-validation-for="Image" class="alert-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="Topic">Topic</label>
+                                <input type="text" class="form-control" asp-for="Topic" placeholder="Topic">
+                                <span asp-validation-for="Topic" class="alert-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="Topicdata">Topicdata</label>
+                                <input type="text" class="form-control" asp-for="Topicdata" placeholder="Topicdata">
+                                <span asp-validation-for="Topicdata" class="alert-danger"></span>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-inverse-success btn-fw">Success</button>
+                        <a asp-controller="Footer" asp-action="Index" class="btn btn-inverse-secondary btn-fw">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

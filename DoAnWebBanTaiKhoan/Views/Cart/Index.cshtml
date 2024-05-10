@@ -31,7 +31,7 @@
 							{
 								<tr class="text-center">
 									<td class="product-remove">
-										<form asp-action="Delete"  asp-route-id="@item.cart.product_id" method="post">
+										<form asp-action="Delete" asp-route-id="@item.cart.product_id" method="post">
 											<button class="ion-ios-close" style="border-radius: 8px; width:40px;" type="submit"></button/>
 										</form>
 									</td>
@@ -40,14 +40,14 @@
 										<h3>@item.product.product_name</h3>
 										<p>@item.product.product_description</p>
 									</td>
-									<td class="price">$@item.product.price</td>
+									<td class="price">@item.product.price VND</td>
 									<td class="quantity">
 						        		<for class="input-group mb-3">
 					             			<input type="number" name="quantity" class="quantity form-control input-number" value="@item.cart.quantity" min="1" max="100">
 					          			</for>
 									</td>
 
-									<td class="total">$@(item.cart.quantity*item.product.price)</td>
+									<td class="total">@(item.cart.quantity*item.product.price) VND</td>
 								</tr>
 								decimal totalPrice = item.product.price * item.cart.quantity; 
 									totalAmount += totalPrice; 

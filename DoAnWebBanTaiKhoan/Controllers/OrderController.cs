@@ -83,31 +83,31 @@ namespace DoAnTapHoaCongNghe.Controllers
 			}
 			return NotFound();
 		}
-		public IActionResult Delete(int? id)
-		{
-			if (id == null || id == 0)
-			{
-				return NotFound();
-			}
-			var cc = _context.orders.Find(id);
-			if (cc == null)
-			{
-				return NotFound();
-			}
-			return View(cc);
-		}
-		[HttpPost]
-		public IActionResult Delete(int id)
-		{
-			var db = _context.orders.Find(id);
-			if (db == null)
-			{
-				return NotFound();
-			}
-			_context.orders.Remove(db);
-			_context.SaveChanges();
-			return RedirectToAction("Index");
-		}
+		//public IActionResult Delete(int? id)
+		//{
+		//	if (id == null || id == 0)
+		//	{
+		//		return NotFound();
+		//	}
+		//	var cc = _context.orders.Find(id);
+		//	if (cc == null)
+		//	{
+		//		return NotFound();
+		//	}
+		//	return View(cc);
+		//}
+		//[HttpPost]
+		//public IActionResult Delete(int id)
+		//{
+		//	var db = _context.orders.Find(id);
+		//	if (db == null)
+		//	{
+		//		return NotFound();
+		//	}
+		//	_context.orders.Remove(db);
+		//	_context.SaveChanges();
+		//	return RedirectToAction("Index");
+		//}
 
 	}
 }

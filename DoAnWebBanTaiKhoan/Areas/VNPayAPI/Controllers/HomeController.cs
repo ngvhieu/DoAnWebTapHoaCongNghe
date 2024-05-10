@@ -15,7 +15,7 @@ namespace DoAnTapHoaCongNghe.Areas.VNPayAPI.Controllers
             _context = context;
         }
         public string url = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        public string returnUrl = $"https://localhost:44326/vnpayAPI/PaymentConfirm";
+        public string returnUrl = $"https://localhost:44311/vnpayAPI/PaymentConfirm";
         public string tmnCode = "2J2CRS7E";
         public string hashSecret = "IWDIKLEBNJKZAXUMZSVDNLPKWTQMLROX";
         public ActionResult Index()
@@ -80,7 +80,7 @@ namespace DoAnTapHoaCongNghe.Areas.VNPayAPI.Controllers
                     {
 						//Thanh toán thành công
 						//ViewBag.Message = "Thanh toán thành công hóa đơn " + orderId + " | Mã giao dịch: " + vnpayTranId;
-						return Redirect($"/order/Detail/{orderId}&");
+						return Redirect($"/order/Details/{orderId}");
                     }
                     else
                     {

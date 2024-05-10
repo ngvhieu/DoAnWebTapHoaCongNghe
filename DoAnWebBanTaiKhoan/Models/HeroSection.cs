@@ -6,6 +6,7 @@ namespace DoAnTapHoaCongNghe.Models
 	public class HeroSection
 	{
 		[Key]
+		public int Id { get; set; }
 		public string? Intro { get; set; }
 		public string? Info { get; set; }
 		public string? Image {  get; set; }

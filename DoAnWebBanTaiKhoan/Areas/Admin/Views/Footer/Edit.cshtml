@@ -1,0 +1,48 @@
+﻿@model DoAnTapHoaCongNghe.Models.Footer
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="main-panel">
+    <div class="row">
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Sua Menu</h4>
+                    <form class="forms-sample" method="post" asp-action="Edit">
+                        <div asp-validation-summary="All"></div>
+                        <input type="text" asp-for="phone" hidden />
+                        <div class="form-group">
+                            <label asp-for="name">Tên</label>
+                            <input type="text" class="form-control" asp-for="name" placeholder="Name">
+                            <span asp-validation-for="name" class="alert-danger"></span>
+                        </div>
+                        <div class=" d-flex flex-wrap">
+                            <div class="form-group col-md-6">
+                                <label asp-for="infor">Thông tin</label>
+                                <input type="text" class="form-control" asp-for="infor" placeholder="info">
+                                <span asp-validation-for="infor" class="alert-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="phone">Số điện thoại</label>
+                                <input type="text" class="form-control" asp-for="phone" placeholder="phone number">
+                                <span asp-validation-for="phone" class="alert-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="address">Địa chỉ</label>
+                                <input type="text" class="form-control" asp-for="address" placeholder="address">
+                                <span asp-validation-for="address" class="alert-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="email">Email</label>
+                                <input type="text" class="form-control" asp-for="email" placeholder="Email">
+                                <span asp-validation-for="email" class="alert-danger"></span>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-inverse-success btn-fw">Success</button>
+                        <a asp-controller="Footer" asp-action="Index" class="btn btn-inverse-secondary btn-fw">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

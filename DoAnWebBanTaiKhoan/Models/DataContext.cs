@@ -21,5 +21,8 @@ namespace DoAnTapHoaCongNghe.Models
 		public DbSet<Order> orders { get; set; }
 		public DbSet<OrderInfo> orderinfos { get; set; }
 		public DbSet<Cart> carts { get; set; }
+        public DbSet<Footer> footer { get; set; }
+        public DbSet<Question> question { get; set; }
+        public DbSet<Services> services { get; set; }
 	}
 }
