@@ -3,6 +3,14 @@
 @{
 	Layout = "~/Views/Shared/_LayoutProduct.cshtml";
 }
+@if (TempData["SuccessMessage"] != null)
+{
+	<div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+@if (TempData["InfoMessage"] != null)
+{
+	<div class="alert alert-info">@TempData["InfoMessage"]</div>
+}
 @await Component.InvokeAsync("MenuView")
 <section id="hero" class="hero align-items-center" style="height: 10px; min-height: 0;">
 </section>

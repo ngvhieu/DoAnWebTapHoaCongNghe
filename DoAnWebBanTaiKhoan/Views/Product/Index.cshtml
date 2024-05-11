@@ -4,6 +4,14 @@
 	Layout = "~/Views/Shared/_LayoutProduct.cshtml";
 }
 @await Component.InvokeAsync("MenuView")
+@if (TempData["SuccessMessage"] != null)
+{
+	<div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+@if (TempData["InfoMessage"] != null)
+{
+	<div class="alert alert-info">@TempData["InfoMessage"]</div>
+}
 <!-- ======= Hero Section ======= -->
 <section id="hero" class="hero d-flex align-items-center">
 	<div class="container">
@@ -32,6 +40,7 @@
 				</ul>
 			</div>
 		</div>
+		
 		<div class="row">
 			@foreach (var db in Model)
 			{
@@ -88,4 +97,6 @@
 			</div>
 		</div>
 	</div>
+
+
 </section>
