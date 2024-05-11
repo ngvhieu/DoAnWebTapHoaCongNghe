@@ -2,6 +2,7 @@
 using System.Web;
 using DoAnTapHoaCongNghe.Areas.VNPayAPI.Util;
 using DoAnTapHoaCongNghe.Models;
+using DoAnTapHoaCongNghe.Utilities;
 
 namespace DoAnTapHoaCongNghe.Areas.VNPayAPI.Controllers
 {
@@ -45,18 +46,6 @@ namespace DoAnTapHoaCongNghe.Areas.VNPayAPI.Controllers
 			string paymentUrl = pay.CreateRequestUrl(url, hashSecret);
             return Redirect(paymentUrl);
         }
-        public IActionResult PaymentFail(int orderId)
-        {
-            // Cập nhật trạng thái đơn hàng thất bại
-            var order = _context.orders.FirstOrDefault(o => o.order_id == orderId);
-            if (order != null)
-            {
-                order.order_status = "failed";
-                _context.SaveChanges();
-                return View(order);
-            }
-            return NotFound();
-        }
         [Route("/VNpayAPI/paymentconfirm")]
         public IActionResult PaymentConfirm()
         {
@@ -79,13 +68,22 @@ namespace DoAnTapHoaCongNghe.Areas.VNPayAPI.Controllers
                     if (vnp_ResponseCode == "00")
                     {
 						//Thanh toán thành công
-						//ViewBag.Message = "Thanh toán thành công hóa đơn " + orderId + " | Mã giao dịch: " + vnpayTranId;
+						int userId = Functions._UserID; 
+						var cartItems = _context.carts.Where(c => c.user_id == userId).ToList();
+						_context.carts.RemoveRange(cartItems);
+						_context.SaveChanges();
 						return Redirect($"/order/Details/{orderId}");
                     }
                     else
                     {
 						//Thanh toán không thành công. Mã lỗi: vnp_ResponseCode
 						//ViewBag.Message = "Có lỗi xảy ra trong quá trình xử lý hóa đơn " + orderId + " | Mã giao dịch: " + vnpayTranId + " | Mã lỗi: " + vnp_ResponseCode;
+						var order = _context.orders.FirstOrDefault(o => o.order_id == orderId);
+						if (order != null)
+						{
+							order.order_status = "fail";
+							_context.SaveChanges();
+						}
 						return Redirect($"/Order/-1&{vnpayTranId}&{orderInfor}");
                     }
                 }
@@ -93,11 +91,16 @@ namespace DoAnTapHoaCongNghe.Areas.VNPayAPI.Controllers
                 {
 					//phản hồi không khớp với chữ ký
 					//ViewBag.Message = "Có lỗi xảy ra trong quá trình xử lý";
+					var order = _context.orders.FirstOrDefault(o => o.order_id == orderId);
+					if (order != null)
+					{
+						order.order_status = "fail";
+						_context.SaveChanges();
+					}
 					return RedirectToAction("PaymentFail");
 				}
             }
-			//phản hồi không hợp lệ
-			//return View();
+
 			return Redirect($"/order/-1-10&return_data_fail");
 
 		}

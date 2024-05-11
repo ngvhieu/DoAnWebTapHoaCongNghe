@@ -47,6 +47,8 @@
 									</td>
 									<td class="total">@(item.cart.quantity * item.product.price) VND</td>
 								</tr>
+								decimal totalPrice = item.product.price * item.cart.quantity;
+								totalAmount += totalPrice;
 							}
 
 						</tbody>
@@ -151,6 +153,36 @@
 			$('.total-price span:last').text('$' + totalAmount.toFixed(2));
 		});
 	});
+	$(document).ready(function () {
+		$(".quantity input").on('input', function () {
+			var quantity = $(this).val();
+			var cartId = $(this).closest('tr').data('cart-id');
+
+			$.ajax({
+				url: '/Cart/UpdateQuantity', // Đảm bảo đường dẫn chính xác đến action UpdateQuantity trong CartController
+				type: 'POST',
+				data: {
+					cartId: cartId,
+					quantity: quantity
+				},
+				success: function (response) {
+					// Kiểm tra kết quả trả về từ action
+					if (response.success) {
+						// Thông báo cập nhật số lượng thành công
+						alert("Cập nhật số lượng thành công");
+					} else {
+						// Thông báo cập nhật số lượng thất bại
+						alert("Cập nhật số lượng thất bại, vui lòng tải lại trang và thử lại");
+					}
+				},
+				error: function () {
+					// Xử lý khi có lỗi xảy ra
+					alert("Đã xảy ra lỗi khi cập nhật số lượng");
+				}
+			});
+		});
+	});
 
 </script>
+
 

@@ -38,7 +38,6 @@ namespace DoAnTapHoaCongNghe.Controllers
 			{
 				return NotFound();
 			}
-
 			// Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
 			var existingCartItem = _context.carts.FirstOrDefault(c => c.product_id == product_id && c.user_id == Functions._UserID);
 			if (existingCartItem != null)
@@ -75,7 +74,7 @@ namespace DoAnTapHoaCongNghe.Controllers
                 var product = _context.products.FirstOrDefault(m => m.product_id == item.product_id);
                 if (product != null)
                 {
-                    totalPay += product.price;
+                    totalPay += product.price * item.quantity;
                     productstr += product.product_id + ",";
                     productIds.Add(product.product_id);
 					sellerIds.Add(product.seller_id);
@@ -84,7 +83,6 @@ namespace DoAnTapHoaCongNghe.Controllers
 			string url = hanldeOrder(userId, totalPay, carts, productstr, sellerIds);
             return Redirect(url);
         }
-
         public string hanldeOrder(int userId, decimal totalPay, List<Cart> carts, string productstr, List<int> sellerIds)
         {
 			var now = DateTime.Now;
@@ -104,7 +102,6 @@ namespace DoAnTapHoaCongNghe.Controllers
 				_context.SaveChanges();
 				idOrders.Add(newOrder.order_id);
 			}
-
             int index = 0;
 			foreach (var cart in carts)
 			{
@@ -119,7 +116,21 @@ namespace DoAnTapHoaCongNghe.Controllers
 			_context.SaveChanges();
 			return $"/vnpayapi/{Convert.ToInt32(totalPay)}00&{productstr.TrimEnd(',')}&{idOrders[index - 1]}";
 		}
-        public IActionResult Delete(int? id)
+		[HttpPost]
+		public IActionResult UpdateQuantity(int cartId, int quantity)
+		{
+			var cartItem = _context.carts.Find(cartId);
+
+			if (cartItem != null)
+			{
+				cartItem.quantity = quantity;
+				_context.SaveChanges();
+				return Json(new { success = true });
+			}
+
+			return Json(new { success = false });
+		}
+		public IActionResult Delete(int? id)
         {
             if (id == null || id == 0)
             {
@@ -145,6 +156,5 @@ namespace DoAnTapHoaCongNghe.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
-
 	}
 }

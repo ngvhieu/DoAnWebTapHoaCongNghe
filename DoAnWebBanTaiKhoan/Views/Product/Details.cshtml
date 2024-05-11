@@ -5,11 +5,22 @@
 }
 @if (TempData["SuccessMessage"] != null)
 {
-	<div class="alert alert-success">@TempData["SuccessMessage"]</div>
+	<script>
+		toastr.success('@TempData["SuccessMessage"]', 'Thành công', {
+			positionClass: 'toast-bottom-right',
+			preventDuplicates: true
+		});
+	</script>
 }
+
 @if (TempData["InfoMessage"] != null)
 {
-	<div class="alert alert-info">@TempData["InfoMessage"]</div>
+	<script>
+		toastr.info('@TempData["InfoMessage"]', 'Thông tin', {
+			positionClass: 'toast-bottom-right',
+			preventDuplicates: true
+		});
+	</script>
 }
 @await Component.InvokeAsync("MenuView")
 <section id="hero" class="hero align-items-center" style="height: 10px; min-height: 0;">
