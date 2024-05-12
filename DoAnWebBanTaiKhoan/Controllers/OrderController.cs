@@ -23,7 +23,7 @@ namespace DoAnTapHoaCongNghe.Controllers
 									join orderInfo in _context.orderinfos on order.order_id equals orderInfo.OrderID
 									join product in _context.products on orderInfo.ProductID equals product.product_id
 									join seller in _context.sellers on product.seller_id equals seller.seller_id
-									//where order.user_id == Functions._UserID && order.order_status == "paid"
+									where order.user_id == Functions._UserID && order.order_status == "paid"
 									select new OrderViewModel
 									{
 										OrderID = order.order_id,
@@ -35,15 +35,8 @@ namespace DoAnTapHoaCongNghe.Controllers
 										Quantity = orderInfo.Quantity,
 										TotalPrice = order.total_price,
 										OrderStatus = order.order_status,
-
 									}).ToList();
-
-			//// Lấy danh sách đơn hàng của người dùng đã thanh toán thất bại
-			//var failedOrders = _context.orders
-			//	.Where(o => o.user_id == Functions._UserID && o.order_status == "failed")
-			//	.ToList();
-
-			//// Hiển thị thông tin đơn hàng thành công và thất bại
+			successfulOrders = successfulOrders.OrderByDescending(o => o.Time).ToList();
 			return View(successfulOrders);
 		}
 

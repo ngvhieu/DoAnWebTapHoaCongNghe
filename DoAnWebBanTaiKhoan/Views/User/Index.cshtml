@@ -1,5 +1,9 @@
 ﻿@using DoAnTapHoaCongNghe.Models;
 @model User
+@{
+	decimal totalSpent = ViewBag.TotalSpent;
+	int totalProductsBought = ViewBag.TotalProductsBought;
+}
 <section id="hero" class="hero align-items-center" style="height: 10px; min-height: 0;">
 </section>
 <div>&nbsp;</div>
@@ -42,24 +46,16 @@
 
 						<div class="row">
 							<div class="col-sm-3">
-								<h6 class="mb-0">Số dư</h6>
+								<h6 class="mb-0">Số tiền đã chi tiêu</h6>
 							</div>
-							<div class="col-sm-9 text-secondary">2.962 VND</div>
-						</div>
-						<hr>
-
-						<div class="row">
-							<div class="col-sm-3">
-								<h6 class="mb-0">Ngày đăng ký</h6>
-							</div>
-							<div class="col-sm-9 text-secondary">05/09/2022</div>
+							<div class="col-sm-9 text-secondary">@totalSpent VND</div>
 						</div>
 						<hr>
 						<div class="row">
 							<div class="col-sm-3">
 								<h6 class="mb-0">Đã mua</h6>
 							</div>
-							<div class="col-sm-9 text-secondary">140 sản phẩm</div>
+							<div class="col-sm-9 text-secondary">@totalProductsBought sản phẩm</div>
 						</div>
 						<hr>
 						<div class="row">

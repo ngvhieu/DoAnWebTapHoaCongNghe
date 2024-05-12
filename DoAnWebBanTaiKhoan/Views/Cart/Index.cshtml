@@ -1,11 +1,10 @@
-﻿@using DoAnTapHoaCongNghe.Models; 
+﻿@using DoAnTapHoaCongNghe.Models;
 @{
 	Layout = "~/Views/Shared/_LayoutProduct.cshtml";
 }
-
- @{
-    decimal totalAmount = 0;
-} 
+@{
+	decimal totalAmount = 0;
+}
 @await Component.InvokeAsync("MenuView")
 <section id="hero" class="hero align-items-center" style="height: 10px; min-height: 0;">
 </section>
@@ -50,7 +49,6 @@
 								decimal totalPrice = item.product.price * item.cart.quantity;
 								totalAmount += totalPrice;
 							}
-
 						</tbody>
 					</table>
 				</div>
@@ -112,12 +110,27 @@
 						<span>@totalAmount</span>
 					</p>
 				</div>
-				 <a asp-action="Pay" id="proceedToCheckoutBtn" style="" class="btn btn-primary py-3 px-4">Proceed to Checkout</a>
+				<a asp-action="Pay" id="proceedToCheckoutBtn" style="" class="btn btn-primary py-3 px-4">Proceed to Checkout</a>
 			</div>
 		</div>
 	</div>
-</section>
+	<div id="notification-container"></div>
+	@if (TempData["SuccessMessage"] != null)
+	{
+		<div class="alert alert-success alert-dismissible fade show position-fixed bottom-0 end-0 mb-3 me-3" role="alert">
+			@TempData["SuccessMessage"]
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	}
 
+	@if (TempData["ErrorMessage"] != null)
+	{
+		<div class="alert alert-danger alert-dismissible fade show position-fixed bottom-0 end-0 mb-3 me-3" role="alert">
+			@TempData["ErrorMessage"]
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	}
+</section>
 <section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
 	<div class="container py-4">
 		<div class="row d-flex justify-content-center py-5">
@@ -144,7 +157,6 @@
 			var price = $(this).closest('tr').find('.price').text().replace('$', '');
 			var totalPrice = parseFloat(price) * parseInt(quantity);
 			$(this).closest('tr').find('.total').text('$' + totalPrice.toFixed(2));
-
 			// Recalculate totalAmount
 			var totalAmount = 0;
 			$('.total').each(function () {
@@ -157,32 +169,60 @@
 		$(".quantity input").on('input', function () {
 			var quantity = $(this).val();
 			var cartId = $(this).closest('tr').data('cart-id');
-
 			$.ajax({
-				url: '/Cart/UpdateQuantity', // Đảm bảo đường dẫn chính xác đến action UpdateQuantity trong CartController
+				url: '/Cart/UpdateQuantity',
 				type: 'POST',
 				data: {
 					cartId: cartId,
 					quantity: quantity
 				},
 				success: function (response) {
-					// Kiểm tra kết quả trả về từ action
+					var notificationContainer = $('#notification-container');
+					// Xóa thông báo cũ nếu có
+					notificationContainer.empty();
 					if (response.success) {
-						// Thông báo cập nhật số lượng thành công
-						alert("Cập nhật số lượng thành công");
+						// Hiển thị thông báo thành công
+						var successNotification = $('<div>').addClass('notification success').text("Cập nhật số lượng thành công");
+						notificationContainer.append(successNotification);
 					} else {
-						// Thông báo cập nhật số lượng thất bại
-						alert("Cập nhật số lượng thất bại, vui lòng tải lại trang và thử lại");
+						// Hiển thị thông báo thất bại
+						var errorNotification = $('<div>').addClass('notification error').text("Cập nhật số lượng thất bại, vui lòng tải lại trang và thử lại");
+						notificationContainer.append(errorNotification);
 					}
+					// Ẩn thông báo sau 3 giây
+					setTimeout(function () {
+						notificationContainer.children().fadeOut(300, function () {
+							$(this).remove();
+						});
+					}, 3000);
 				},
 				error: function () {
 					// Xử lý khi có lỗi xảy ra
-					alert("Đã xảy ra lỗi khi cập nhật số lượng");
+					var errorNotification = $('<div>').addClass('notification error').text("Đã xảy ra lỗi khi cập nhật số lượng");
+					$('#notification-container').append(errorNotification);
+					// Ẩn thông báo sau 3 giây
+					setTimeout(function () {
+						errorNotification.fadeOut(300, function () {
+							$(this).remove();
+						});
+					}, 3000);
 				}
 			});
 		});
 	});
-
+</script>
+<script>
+	window.addEventListener('load', function () {
+		var alerts = document.querySelectorAll('.alert');
+		alerts.forEach(function (alert) {
+			setTimeout(function () {
+				alert.classList.add('fade');
+				setTimeout(function () {
+					alert.style.display = 'none';
+				}, 300);
+			}, 3000);
+		});
+	});
 </script>
 
 

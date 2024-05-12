@@ -1,4 +1,4 @@
-/*!
+﻿/*!
  * Bootstrap v4.2.1 (https://getbootstrap.com/)
  * Copyright 2011-2018 The Bootstrap Authors
  * Copyright 2011-2018 Twitter, Inc.
@@ -48,7 +48,41 @@ html {
 
 article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: block; }
+#notification-container {
+    position: fixed;
+    bottom: 20px; /* Thay đổi từ top: 20px; thành bottom: 20px; */
+    right: 20px;
+    z-index: 9999;
+}
 
+.notification {
+    background-color: #333;
+    color: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    animation: fadeIn 0.3s ease-in-out forwards;
+}
+
+    .notification.success {
+        background-color: #28a745;
+    }
+
+    .notification.error {
+        background-color: #dc3545;
+    }
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -6750,6 +6784,47 @@ button.bg-dark:focus {
 .ml-auto,
 .mx-auto {
   margin-left: auto !important; }
+
+
+.notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.notification {
+    background-color: #333;
+    color: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    animation: fadeIn 0.3s ease-in-out forwards;
+}
+
+    .notification.success {
+        background-color: #28a745;
+    }
+
+    .notification.info {
+        background-color: #17a2b8;
+    }
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
+
+
 
 @media (min-width: 576px) {
   .m-sm-0 {

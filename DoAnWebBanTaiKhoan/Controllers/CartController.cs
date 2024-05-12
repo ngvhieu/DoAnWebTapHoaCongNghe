@@ -7,32 +7,31 @@ using System.Web.Helpers;
 using Microsoft.EntityFrameworkCore;
 namespace DoAnTapHoaCongNghe.Controllers
 {
-    public class CartController : Controller
-    {
-        private readonly DataContext _context;
-        private readonly PayLib _vnPayservice;
-        public CartController(DataContext context)
-        {
-            _context = context;
-        }
-        public IActionResult Index(Dictionary<string, string> request)
-        {
-            if (!Functions.IsLogin())
-                return RedirectToAction("Index", "login");
-            var order = _context.carts.Where(o => o.user_id == Functions._UserID).Select(o => new
-            {
-                cart = o,
-                product = _context.products.Where(p => p.product_id == o.product_id).FirstOrDefault(),
-            }).ToList();
-            //return Ok(order);
-            return View(order);
-        }
-        [HttpPost]
+	public class CartController : Controller
+	{
+		private readonly DataContext _context;
+		private readonly PayLib _vnPayservice;
+		public CartController(DataContext context)
+		{
+			_context = context;
+		}
+		public IActionResult Index(Dictionary<string, string> request)
+		{
+			if (!Functions.IsLogin())
+				return RedirectToAction("Index", "login");
+			var order = _context.carts.Where(o => o.user_id == Functions._UserID).Select(o => new
+			{
+				cart = o,
+				product = _context.products.Where(p => p.product_id == o.product_id).FirstOrDefault(),
+			}).ToList();
+			//return Ok(order);
+			return View(order);
+		}
+		[HttpPost]
 		public ActionResult AddToCart(int product_id, int quantity)
 		{
 			if (!Functions.IsLogin())
 				return RedirectToAction("Index", "login");
-
 			var product = _context.products.FirstOrDefault(p => p.product_id == product_id);
 			if (product == null)
 			{
@@ -49,7 +48,7 @@ namespace DoAnTapHoaCongNghe.Controllers
 			else
 			{
 				// Nếu sản phẩm chưa có trong giỏ hàng, thêm mới vào 
-				var order = new Models.Cart 
+				var order = new Models.Cart
 				{
 					user_id = Functions._UserID,
 					product_id = product_id,
@@ -62,33 +61,33 @@ namespace DoAnTapHoaCongNghe.Controllers
 			return RedirectToAction("Index", "Product");
 		}
 		public ActionResult Pay()
-        {
-            int userId = Functions._UserID;
-            var carts = _context.carts.Where(m => m.user_id == userId).ToList();
-            decimal totalPay = 0;
-            string productstr = "";
-            List<int> productIds = new List<int>();
-            List<int> sellerIds = new List<int>();
+		{
+			int userId = Functions._UserID;
+			var carts = _context.carts.Where(m => m.user_id == userId).ToList();
+			decimal totalPay = 0;
+			string productstr = "";
+			List<int> productIds = new List<int>();
+			List<int> sellerIds = new List<int>();
 			foreach (var item in carts)
-            {
-                var product = _context.products.FirstOrDefault(m => m.product_id == item.product_id);
-                if (product != null)
-                {
-                    totalPay += product.price * item.quantity;
-                    productstr += product.product_id + ",";
-                    productIds.Add(product.product_id);
+			{
+				var product = _context.products.FirstOrDefault(m => m.product_id == item.product_id);
+				if (product != null)
+				{
+					totalPay += product.price * item.quantity;
+					productstr += product.product_id + ",";
+					productIds.Add(product.product_id);
 					sellerIds.Add(product.seller_id);
 				}
-            }
+			}
 			string url = hanldeOrder(userId, totalPay, carts, productstr, sellerIds);
-            return Redirect(url);
-        }
-        public string hanldeOrder(int userId, decimal totalPay, List<Cart> carts, string productstr, List<int> sellerIds)
-        {
+			return Redirect(url);
+		}
+		public string hanldeOrder(int userId, decimal totalPay, List<Cart> carts, string productstr, List<int> sellerIds)
+		{
 			var now = DateTime.Now;
-            List<int> idOrders = new List<int>();
-            foreach(int id in sellerIds)
-            {
+			List<int> idOrders = new List<int>();
+			foreach (int id in sellerIds)
+			{
 				Order newOrder = new Order()
 				{
 					user_id = userId,
@@ -97,12 +96,11 @@ namespace DoAnTapHoaCongNghe.Controllers
 					Time = now,
 					order_status = "paid"
 				};
-
 				_context.Add(newOrder);
 				_context.SaveChanges();
 				idOrders.Add(newOrder.order_id);
 			}
-            int index = 0;
+			int index = 0;
 			foreach (var cart in carts)
 			{
 				_context.Add(new OrderInfo()
@@ -111,7 +109,7 @@ namespace DoAnTapHoaCongNghe.Controllers
 					ProductID = cart.product_id,
 					Quantity = cart.quantity,
 				});
-                ++index;
+				++index;
 			}
 			_context.SaveChanges();
 			return $"/vnpayapi/{Convert.ToInt32(totalPay)}00&{productstr.TrimEnd(',')}&{idOrders[index - 1]}";
@@ -127,34 +125,42 @@ namespace DoAnTapHoaCongNghe.Controllers
 				_context.SaveChanges();
 				return Json(new { success = true });
 			}
-
 			return Json(new { success = false });
 		}
 		public IActionResult Delete(int? id)
-        {
-            if (id == null || id == 0)
-            {
+		{
+			if (id == null || id == 0)
+			{
 				return NotFound();
 			}
-            var cc = _context.carts.Find(id);
+			var cc = _context.carts.Find(id);
 			if (cc == null)
-            {
-                return NotFound();
-            }
-            return View(cc);
-        }
-        [Route("/cart/del/{id}")]
-        [HttpPost]
-        public IActionResult Delete(int id)
-        {
-            var db = _context.carts.Find(id);
+			{
+				return NotFound();
+			}
+			return View(cc);
+		}
+		[Route("/cart/del/{id}")]
+		[HttpPost]
+		public IActionResult Delete(int id)
+		{
+			var db = _context.carts.Find(id);
 			if (db == null)
-            {
-                return NotFound();
-            }
-            _context.carts.Remove(db);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
-        }
+			{
+				TempData["ErrorMessage"] = "Không tìm thấy sản phẩm để xóa";
+				return RedirectToAction("Index");
+			}
+			try
+			{
+				_context.carts.Remove(db);
+				_context.SaveChanges();
+				TempData["SuccessMessage"] = "Đã xóa sản phẩm khỏi giỏ hàng";
+			}
+			catch (Exception ex)
+			{
+				TempData["ErrorMessage"] = "Đã xảy ra lỗi khi xóa sản phẩm: " + ex.Message;
+			}
+			return RedirectToAction("Index");
+		}
 	}
 }
