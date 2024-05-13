@@ -43,6 +43,7 @@ namespace DoAnTapHoaCongNghe.Controllers
             Functions._Email = string.Empty;
             Functions._Message = string.Empty;
             Functions._MessageEmail = string.Empty;
+            Functions._Role = 0;
             return RedirectToAction("Index", "Home");
 
         }

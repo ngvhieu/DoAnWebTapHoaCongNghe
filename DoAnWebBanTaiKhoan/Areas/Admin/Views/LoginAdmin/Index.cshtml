@@ -89,22 +89,3 @@
     <!-- endinject -->
 </body>
 </html>
-@* <script>
-    const form = document.querySelector("form")
-    form.onsubmit = function (e) {
-        e.preventDefault()
-        const data = {}
-        $("#form").serializeArray().forEach(function (value) {
-            data[value.name] = value.value
-        })
-        axios.post('/login/index', data)
-            .then(response => response.data)
-            .then(data => {
-                window.location.href = document.referrer ? document.referrer : window.location.origin + "/home"
-            })
-            .catch(err => {
-                console.log(err)
-                document.querySelector("#message").innerText = err.response.data.err
-            })
-    }
-</script> *@

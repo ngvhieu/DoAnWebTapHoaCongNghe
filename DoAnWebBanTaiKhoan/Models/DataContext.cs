@@ -1,5 +1,6 @@
 ﻿using DoAnTapHoaCongNghe.Areas.Admin.Models;
 using Microsoft.EntityFrameworkCore;
+using DoAnTapHoaCongNghe.Areas.Seller.Models;
 namespace DoAnTapHoaCongNghe.Models
 {
     public class DataContext : DbContext
@@ -11,7 +12,7 @@ namespace DoAnTapHoaCongNghe.Models
 
         }
         public DbSet<Menu> Menus { get; set; }
-        
+        public DbSet<SellerMenu> sellerMenus { get; set; }
         public DbSet<HeroSection> HeroSections { get; set; }
         public DbSet<AdminMenu> AdminMenus { get; set; }    
         public DbSet<admin> admins { get; set; }

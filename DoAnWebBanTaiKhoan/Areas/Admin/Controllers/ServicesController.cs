@@ -1,4 +1,5 @@
 ﻿using DoAnTapHoaCongNghe.Models;
+using DoAnTapHoaCongNghe.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 namespace DoAnTapHoaCongNghe.Areas.Admin.Controllers
@@ -13,7 +14,20 @@ namespace DoAnTapHoaCongNghe.Areas.Admin.Controllers
 		}
 		public IActionResult Index()
 		{
-			var tmlist = _context.services.OrderBy(m => m.services_id).ToList();
+            if (!Functions.IsLogin())
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                const int adminRoleId = 3; // Khai báo hằng số cho vai trò "Admin"
+                if (Functions._Role != adminRoleId)
+                {
+
+                    return RedirectToAction("Index", "ErrorRole");
+                }
+            }
+            var tmlist = _context.services.OrderBy(m => m.services_id).ToList();
 			return View(tmlist);
 
 		}

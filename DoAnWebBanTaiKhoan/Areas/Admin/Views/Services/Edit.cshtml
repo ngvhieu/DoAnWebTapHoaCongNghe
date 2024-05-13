@@ -2,6 +2,7 @@
 @{
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+@await Component.InvokeAsync("AdminMenu")
 <div class="main-panel">
     <div class="row">
         <div class="col-12 grid-margin stretch-card">
@@ -31,7 +32,7 @@
                             <input type="text" class="form-control" asp-for="link" placeholder="link">
                             <span asp-validation-for="link" class="alert-danger"></span>
                         </div>
-                        <a asp-controller="Question" asp-action="Index" class="btn btn-inverse-secondary btn-fw">Cancel</a>
+                        <a asp-controller="Services" asp-action="Index" class="btn btn-inverse-secondary btn-fw">Cancel</a>
                     </form>
                 </div>
             </div>

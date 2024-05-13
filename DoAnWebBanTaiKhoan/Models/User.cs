@@ -15,5 +15,6 @@ namespace DoAnTapHoaCongNghe.Models
         public string? phone_number { get; set; }
         //public DateTime? create_at { get; set; }
         public string? avatar { get; set; }
+        public int? role { get; set; }
     }
 }

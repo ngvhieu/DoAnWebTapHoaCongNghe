@@ -10,6 +10,7 @@ namespace DoAnTapHoaCongNghe.Utilities
         public static string _Message = String.Empty;
         public static string _Email = String.Empty;
         public static string _MessageEmail = String.Empty;
+        public static int _Role = 0;
 
         public static string TitleSlugGeneration(string type, string title, long id)
         {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using DoAnTapHoaCongNghe.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using DoAnTapHoaCongNghe.Utilities;
 
 namespace DoAnTapHoaCongNghe.Areas.Admin.Controllers
 {
@@ -14,6 +15,20 @@ namespace DoAnTapHoaCongNghe.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
+            if (!Functions.IsLogin())
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                const int adminRoleId = 3; // Khai báo hằng số cho vai trò "Admin"
+                if (Functions._Role != adminRoleId)
+                {
+
+                    return RedirectToAction("Index", "ErrorRole");
+                }
+            }
+
             var mnList = _context.footer.OrderBy(m => m.id).ToList();
             return View(mnList);
         }

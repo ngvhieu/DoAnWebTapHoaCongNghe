@@ -1,13 +1,14 @@
 ﻿using DoAnTapHoaCongNghe.Areas.Admin.Models;
 using DoAnTapHoaCongNghe.Models;
 using DoAnTapHoaCongNghe.Utilities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DoAnTapHoaCongNghe.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("/admin/login")]
-    public class LoginAdminController : Controller
+	public class LoginAdminController : Controller
     {
         private readonly DataContext _context;
 
@@ -55,6 +56,7 @@ namespace DoAnTapHoaCongNghe.Areas.Admin.Controllers
             Functions._UserID = check.admin_id;
             Functions._UserName = string.IsNullOrEmpty(check.username) ? string.Empty : check.username;
             Functions._Email = string.IsNullOrEmpty(check.email) ? string.Empty : check.email;
+            Functions._Role = (int)check.role;
 
             // Nếu không có URL tham chiếu hoặc URL không hợp lệ, chuyển hướng đến trang mặc định
             return RedirectToAction("Index", "Home");

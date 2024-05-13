@@ -2,6 +2,7 @@
 @{
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+@await Component.InvokeAsync("AdminMenu")
 <div class="main-panel">
     <div class="row">
         <div class="col-12 grid-margin stretch-card">

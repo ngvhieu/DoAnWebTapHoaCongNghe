@@ -9,7 +9,19 @@ namespace DoAnTapHoaCongNghe.Areas.Admin.Controllers
         public IActionResult Index()
         {
             if (!Functions.IsLogin())
-                return RedirectToAction("Index","Login");
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                const int adminRoleId = 3; // Khai báo hằng số cho vai trò "Admin"
+                if (Functions._Role != adminRoleId)
+                {
+
+                    return RedirectToAction("Index", "ErrorRole");
+                }
+            }
+
             return View();
         }
         public IActionResult Logout()
@@ -19,6 +31,7 @@ namespace DoAnTapHoaCongNghe.Areas.Admin.Controllers
             Functions._Email = string.Empty;
             Functions._Message = string.Empty;
             Functions._MessageEmail = string.Empty;
+            Functions._Role = 0;
             return RedirectToAction("Index", "Home");
         }
         [Route("/admin/")]

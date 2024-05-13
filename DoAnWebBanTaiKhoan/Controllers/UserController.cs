@@ -20,7 +20,7 @@ namespace DoAnTapHoaCongNghe.Controllers
 							select m).FirstOrDefault();
 			if (!Functions.IsLogin())
 				return RedirectToAction("Index", "login");
-			var paidOrders = (from order in _dataContext.orders
+	     		var paidOrders = (from order in _dataContext.orders
 							  join orderInfo in _dataContext.orderinfos on order.order_id equals orderInfo.OrderID
 							  where order.user_id == Functions._UserID && order.order_status == "paid"
 							  select new
