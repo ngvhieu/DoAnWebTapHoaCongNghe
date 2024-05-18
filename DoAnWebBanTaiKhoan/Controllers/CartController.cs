@@ -103,10 +103,10 @@ namespace DoAnTapHoaCongNghe.Controllers
 			int index = 0;
 			foreach (var cart in carts)
 			{
-				_context.Add(new OrderInfo()
+				var productDetail = _context.productdetail.FirstOrDefault(pd => pd.product_id == cart.product_id && pd.status == "availabe");
 				{
 					OrderID = idOrders[index],
-					ProductID = cart.product_id,
+						ProductID = productDetail.product_id,
 					Quantity = cart.quantity,
 				});
 				++index;
