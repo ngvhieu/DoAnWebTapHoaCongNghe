@@ -41,7 +41,7 @@
 									<td class="price">@item.product.price VND</td>
 									<td class="quantity">
 										<div class="input-group mb-3">
-											<input type="number" name="quantity" class="quantity form-control input-number" value="@item.cart.quantity" min="1" max="100" data-product-id="@item.product.product_id">
+											<input type="number" name="quantity" class="quantity form-control input-number" value="@item.cart.quantity" min="1" max="@item.product.quantity" data-product-id="@item.product.product_id">
 										</div>
 									</td>
 									<td class="total">@(item.cart.quantity * item.product.price) VND</td>

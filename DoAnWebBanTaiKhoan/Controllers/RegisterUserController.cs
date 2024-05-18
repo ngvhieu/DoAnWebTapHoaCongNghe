@@ -17,7 +17,6 @@ namespace DoAnTapHoaCongNghe.Controllers
 		{
 			return View();
 		}
-
 		[HttpPost]
 		public IActionResult Index(User user)
 		{
@@ -25,7 +24,6 @@ namespace DoAnTapHoaCongNghe.Controllers
 			{
 				return NotFound();
 			}
-
 			var check = _context.users.Where(m => m.email == user.email).FirstOrDefault();
 			if (check != null)
 			{

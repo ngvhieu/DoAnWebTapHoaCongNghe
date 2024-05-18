@@ -1,0 +1,66 @@
+﻿@using DoAnTapHoaCongNghe.Models;
+@model IList<Product>
+@{
+    Layout = "~/Areas/Seller/Views/Shared/_Layout.cshtml";
+}
+<div class="main-panel" style="height: 100vh; overflow-y:auto;">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body" style="margin-top: 30px;">
+                        <div id="preloader" class="">
+                            <div class="page-title">
+                                <h2> Danh sach sản phẩm </h2>
+                            </div>
+                        </div>
+                        <p>
+                            <a type="button" class="btn btn-outline-success btn-icon-text" asp-area="Seller" asp-controller="Product" asp-action="Create">
+                                <i class="bi bi-file-earmark-text me-1"></i> Thêm sản phẩm
+                            </a>
+                        </p>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="text-center"> ID </th>
+                                    <th class="text-center"> Product name </th>
+                                    <th class="text-center"> Product description </th>
+                                    <th class="text-center"> Price </th>
+                                    <th class="text-center"> Quantity </th>
+                                    <th class="text-center"> Category </th>
+                                    <th class="text-center"> Image </th>
+                                    <th class="text-center"> Type </th>
+                                </tr>
+                            </thead>
+                            <tbody id="table">
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td class="text-center"> @item.product_id </td>
+                                        <td><a asp-area="Admin" asp-controller="Menu" asp-action="Details" asp-route-id="@item.product_id" class="text-primary"></a> @item.product_name </td>
+                                        <td class="text-center"> @item.product_description </td>
+                                        <td class="text-center"> @item.price </td>
+                                        <td class="text-center"> @item.quantity </td>
+                                        <td class="text-center"> @item.category </td>
+                                        <td class="text-center"> @item.image </td>
+                                        <td class="text-center"> @item.type </td>
+                                        <td class="text-center d-flex justify-content-around">
+                                            <a href="/seller/product/edit/@item.product_id" class="align-items-center d-flex justify-content-center btn btn-outline-warning" style="height:30px">
+                                                <i class="mdi mdi-border-color btn-icon-prepend"></i>
+                                                <button class=" btn-icon-text btn-icon-text" style="border:none;background-color:transparent; height:30px">Edit</button>
+                                            </a>
+                                            <form asp-area="Seller" asp-controller="Product" asp-action="Delete" asp-route-id="@item.product_id" class="align-items-center d-flex justify-content-center btn btn-outline-danger" method="post" style="height:30px">
+                                                <i class="mdi mdi-delete-forever btn-icon-prepend"></i>
+                                                <button class=" btn-icon-text btn-icon-text" style="border:none;background-color:transparent; height:30px" type="submit">Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,5 @@
 ﻿@using DoAnTapHoaCongNghe.ViewModels
-@model List<OrderViewModel>
+@model IList<Order>
 <style>
     .content-wrapper {
         background: #f0f1f6;
@@ -154,20 +154,15 @@
                     <div class="card-body">
                         <div id="" class="">
                             <div class="page-title">
-                                <h2>Order Details</h2>
+                                <h2>Order</h2>
                             </div>
                         </div>
-                        @if (Model.Any())
-                        {
+                       
                             <table class="table">
                                 <thead>
                                     <tr>
                                         <th class="text-center">ID</th>
-                                        <th class="text-center">Mã đơn hàng</th>
                                         <th class="text-center">Thời gian</th>
-                                        <th class="text-center">Tên sản phẩm</th>
-                                        <th class="text-center">Người bán</th>
-                                        <th class="text-center">Số lượng</th>
                                         <th class="text-center">Tổng giá</th>
                                         <th class="text-center">Trạng thái</th>
                                         <th class="text-center">      </th> <!-- Thêm cột cho actions -->
@@ -177,43 +172,35 @@
                                     @foreach (var order in Model)
                                     {
                                         <tr>
-                                            <td class="text-center">@order.OrderID</td>
-                                            <td class="text-center">@order.ProductID</td>
+                                            <td class="text-center">@order.order_id</td>
                                             <td class="text-center">@order.Time</td>
-                                            <td class="text-center">@order.ProductName</td>
-                                            <td class="text-center">@order.ShopName</td>
-                                            <td class="text-center">@order.Quantity</td>
-                                            <td class="text-center">@order.TotalPrice</td>
+                                            <td class="text-center">@order.total_price</td>
                                             <td class="text-center">
-                                                @if (order.OrderStatus == "paid")
+                                                @if (order.order_status == "paid")
                                                 {
-                                                    <span class="badge badge-success">@order.OrderStatus</span>
+                                                <span class="badge badge-success">@order.order_status</span>
                                                 }
-                                                else if (order.OrderStatus == "pending")
+                                            else if (order.order_status == "pending")
                                                 {
-                                                    <span class="badge badge-warning">@order.OrderStatus</span>
+                                                <span class="badge badge-warning">@order.order_status</span>
                                                 }
-                                                else if (order.OrderStatus == "failed")
+                                            else if (order.order_status == "failed")
                                                 {
-                                                    <span class="badge badge-danger">@order.OrderStatus</span>
+                                                <span class="badge badge-danger">@order.order_status</span>
                                                 }
-                                                else if (order.OrderStatus == "oe")
+                                            else if (order.order_status == "oe")
                                                 {
-                                                    <span class="badge badge-info">@order.OrderStatus</span>
+                                                <span class="badge badge-info">@order.order_status</span>
                                                 }
                                             </td>
                                             <td class="text-center d-flex justify-content-around">
-                                                <a class="btn btn-outline-primary btn-fw" style="font-size: 12px;" href="@Url.Action("Details", "Order", new { id = order.OrderID })">Chi tiết</a>
+                                                <a class="btn btn-outline-primary btn-fw" style="font-size: 12px;" href="@Url.Action("Details", "Order", new { OrderID = order.order_id })">Chi tiết</a>
                                             </td>
                                         </tr>
                                     }
                                 </tbody>
                             </table>
-                        }
-                        else
-                        {
-                            <p>No order details found.</p>
-                        }
+                       
                     </div>
                 </div>
             </div>

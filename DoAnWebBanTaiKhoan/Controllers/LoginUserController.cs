@@ -13,7 +13,6 @@ namespace DoAnTapHoaCongNghe.Controllers
         {
             _context = context;
         }
-
         // Action mặc định để hiển thị trang đăng nhập
         //[HttpGet]
         public IActionResult Index()
@@ -22,7 +21,6 @@ namespace DoAnTapHoaCongNghe.Controllers
             //TempData["Referrer"] = Request.Headers["Referer"].ToString();
             return View();
         }
-
         // Action xử lý đăng nhập khi nhận yêu cầu POST từ form đăng nhập
         [HttpPost]
         //[Route("Admin")]
@@ -32,11 +30,9 @@ namespace DoAnTapHoaCongNghe.Controllers
             {
                 return NotFound();
             }
-
             // Mã hóa mật khẩu trước khi kiểm tra
             string hashedPassword = Functions.MD5Password(user.password);
             user.password = hashedPassword;
-
             // Kiểm tra sự tồn tại của người dùng với email và mật khẩu đã mã hóa
             var check = _context.users
                 .Where(m => m.email == user.email && m.password == hashedPassword)
@@ -54,7 +50,6 @@ namespace DoAnTapHoaCongNghe.Controllers
             Functions._UserName = string.IsNullOrEmpty(check.username) ? string.Empty : check.username;
             Functions._Email = string.IsNullOrEmpty(check.email) ? string.Empty : check.email;
             Functions._Role = (int)check.role;
-
             // Nếu không có URL tham chiếu hoặc URL không hợp lệ, chuyển hướng đến trang mặc định
             return RedirectToAction("Index", "Home");
         }

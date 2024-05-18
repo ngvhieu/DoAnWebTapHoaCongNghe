@@ -1,15 +1,15 @@
 ﻿@using DoAnTapHoaCongNghe.Models;
 @model IList<Menu>
 @{
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/Seller/Views/Shared/_Layout.cshtml";
 }
-@await Component.InvokeAsync("AdminMenu")
-<div class="main-panel">
+
+<div class="main-panel" style="height: 100vh;">
     <div class="content-wrapper">
         <div class="row">
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body" style="margin-top: 30px;">
                         <div id="preloader" class="">
                             <div class="page-title">
                                 <h2> Danh sach Menu </h2>
@@ -19,14 +19,7 @@
                             <a type="button" class="btn btn-outline-success btn-icon-text" asp-area="Admin" asp-controller="Menu" asp-action="Create" >
                                 <i class="bi bi-file-earmark-text me-1"></i> Thêm Menu
                             </a>
-                            @* <a type="button" class="btn btn-success" asp-area="Admin" asp-controller="Menu" asp-action="Create">
-                                <i class="bi bi-file-earmark-text me-1">Them menu</i>
-                            </a> *@
-                        </p>
-                        @* <h4 class="card-title">Bordered table</h4>
-                        <p class="card-description">
-                            Add class <code>.table-bordered</code>
-                        </p> *@
+                           
                         <table class="table table-bordered">
                             <thead>
                                 <tr>

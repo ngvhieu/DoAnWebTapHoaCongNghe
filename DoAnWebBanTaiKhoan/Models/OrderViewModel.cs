@@ -11,6 +11,8 @@
 		public int Quantity { get; set; }
 		public decimal TotalPrice {  get; set; }
 		public string OrderStatus { get; set; }
-		
+		public string Value { get; set; }
+		public string Detail {  get; set; }
+		public int ProductCode { get; set; }
 	}
 }

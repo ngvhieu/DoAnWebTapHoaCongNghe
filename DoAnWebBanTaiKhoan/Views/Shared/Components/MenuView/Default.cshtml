@@ -1,21 +1,17 @@
 ﻿@model IList<Menu>
 @using DoAnTapHoaCongNghe.Utilities;
-
 <!-- ======= Header ======= -->
 <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
-
         <a href="index.html" class="logo d-flex align-items-center">
             <!-- Uncomment the line below if you also wish to use an image logo -->
             <!-- <img src="assets/img/logo.png" alt=""> -->
             <h1>TAPHOACONGNGHE</h1>
         </a>
-
         <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
         <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
         <nav id="navbar" class="navbar">
             <ul>
-
                 @foreach (var menu in Model.Where(m => m.Levels == 1).OrderBy(n => n.MenuOrder))
                 {
                     var Pid = menu.MenuID;
@@ -23,7 +19,6 @@
                     @if (Smenu.Count == 0)
                     {
                         var active = string.Equals(ViewContext.RouteData.Values["controller"].ToString(), menu.ControllerName, StringComparison.OrdinalIgnoreCase) ? "active" : "";
-
                         <li><a href="/@menu.Link" class="@active">@menu.MenuName</a></li>
                     }
                     else
@@ -43,19 +38,22 @@
                 {
                     <li class="dropdown">
                         <a><i class="bi bi-person-hearts dropdown-indicator" style="color: rgba(255, 255, 255, 0.6); font-size: 20px; cursor: pointer;"></i></a>
-                        <ul>
+                        <ul style="margin-left:-90px;">
                             <li style="display: flex; align-items: center;margin-left: 10px;">
                                 <img width="30px" height="30px" src="~/assets/img/features-1.jpg">
-                                <div style="display: flex; flex-direction: column; margin-left: 15px;">
+                                <div style="display: flex; flex-direction: column; margin-left: 15px; margin-right:10px;    ">
                                     <p href="#" class="dropdown-item-text" style="margin-bottom: 5px;font-size: 13px; cursor: pointer">@Functions._UserName</p>
                                     <p href="#" class="dropdown-item-text" style="margin-bottom: 5px;font-size: 13px; cursor: pointer;">@Functions._Email</p>
                                 </div>
                             </li>
                             <hr style="border: none; border-bottom: 2px solid black; margin: 5px 0;">
                             <li><a href="/user">Thông tin tài khoản</a></li>
-                            <li><a href="#">Đơn hàng đã mua</a></li>
-                            <li><a href="#">Lịch sử thanh toán</a></li>
+                            <li><a href="/Order">Đơn hàng đã mua</a></li>
                             <li><a href="#">Gian hàng yêu thích</a></li>
+                            @if(Functions._Role == 2)
+                            {
+                                <li><a href="/Seller">Quản lý gian hàng</a></li>
+                            }
                             <li><a href="~/Home/Logout">Đăng xuất</a></li>
                         </ul>
                     </li>

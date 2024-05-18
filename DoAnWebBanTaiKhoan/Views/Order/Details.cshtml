@@ -1,4 +1,4 @@
-﻿@model List<OrderInfo>
+﻿@model List<DoAnTapHoaCongNghe.ViewModels.OrderViewModel>
 <section id="hero" class="hero align-items-center" style="height: 10px; min-height: 0;">
 </section>
 <div class="">
@@ -12,16 +12,15 @@
                                 <h2>Order Details</h2>
                             </div>
                         </div>
-                        @if (Model.Any())
-                        {
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">ID</th>
-                                        <th class="text-center">Mã đơn hàng</th>
+										<th class="text-center">Mã đơn hàng</th>
                                         <th class="text-center">Tên sản phẩm</th>
-                                        <th class="text-center">Thông tin chi tiết</th>
-
+                                    <th class="text-center">Nguoi ban</th>
+                                        <th class="text-center">Mã sản phẩm</th>
+                                        <th class="text-center">Giá trị</th>
+                                        <th class="text-center">Nội dung</th>
                                     </tr>
                                 </thead>
                                 <tbody id="table">
@@ -29,17 +28,15 @@
                                     {
                                         <tr>
                                             <td class="text-center">@order.OrderID</td>
-                                            <td class="text-center">@order.ProductID</td>
-                                            <td class="text-center"></td>
+                                            <td class="text-center">@order.ProductName</td>
+                                        <td class="text-center">@order.ShopName</td>
+                                            <td class="text-center">@order.ProductCode</td>
+                                            <td class="text-center">@order.Value</td>
+                                            <td class="text-center">@order.Detail</td>
                                         </tr>
                                     }
                                 </tbody>
                             </table>
-                        }
-                        else
-                        {
-                            <p>No order details found.</p>
-                        }
                     </div>
                 </div>
             </div>

@@ -25,5 +25,6 @@ namespace DoAnTapHoaCongNghe.Models
         public DbSet<Footer> footer { get; set; }
         public DbSet<Question> question { get; set; }
         public DbSet<Services> services { get; set; }
+        public DbSet<ProductDetail> productdetail { get; set; }
 	}
 }

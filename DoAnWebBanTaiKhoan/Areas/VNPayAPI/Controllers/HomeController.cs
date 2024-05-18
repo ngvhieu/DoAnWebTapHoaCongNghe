@@ -16,7 +16,7 @@ namespace DoAnTapHoaCongNghe.Areas.VNPayAPI.Controllers
             _context = context;
         }
         public string url = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        public string returnUrl = $"https://localhost:44311/vnpayAPI/PaymentConfirm";
+        public string returnUrl = $"https://localhost:44312/vnpayAPI/PaymentConfirm";
         public string tmnCode = "2J2CRS7E";
         public string hashSecret = "IWDIKLEBNJKZAXUMZSVDNLPKWTQMLROX";
         public ActionResult Index()
@@ -72,7 +72,7 @@ namespace DoAnTapHoaCongNghe.Areas.VNPayAPI.Controllers
 						var cartItems = _context.carts.Where(c => c.user_id == userId).ToList();
 						_context.carts.RemoveRange(cartItems);
 						_context.SaveChanges();
-						return Redirect($"/order/Details/{orderId}");
+						return Redirect($"/order/Details?OrderID={orderId}");
                     }
                     else
                     {
